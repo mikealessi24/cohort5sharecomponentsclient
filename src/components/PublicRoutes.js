@@ -1,9 +1,10 @@
-import React from 'react';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
-import ConfirmSignUp from '../pages/ConfirmSignUp';
-import { Router } from '@reach/router';
-import Home from '../pages/Home';
+import React from "react";
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
+import ConfirmSignUp from "../pages/ConfirmSignUp";
+import { Router } from "@reach/router";
+import Landing from "../pages/Landing";
+import NotFound from "../pages/NotFound";
 
 export default function PublicRoutes({ setSignedIn }) {
   const [username, setUsername] = React.useState(undefined);
@@ -20,9 +21,10 @@ export default function PublicRoutes({ setSignedIn }) {
         username={username}
         password={password}
         setSignedIn={setSignedIn}
-        path="confirm"
+        path="/confirm"
       />
-      <Home path="/" />
+      <Landing path="/" />
+      <NotFound default />
     </Router>
   );
 }
