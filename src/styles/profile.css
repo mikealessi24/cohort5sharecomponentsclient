@@ -1,0 +1,22 @@
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profile-components-container {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 15%;
+}
+
+.profile-right {
+  width: 15%;
+}

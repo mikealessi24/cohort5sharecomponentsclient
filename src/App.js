@@ -21,7 +21,7 @@ function App() {
   }, []);
   console.log("here is signed in state", signedIn);
   return (
-    <div className="App">
+    <div>
       {/* <PublicRoutes /> */}
       {signedIn ? (
         <>
