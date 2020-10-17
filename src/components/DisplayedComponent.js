@@ -1,83 +1,90 @@
-import React from "react";
-import axios from "axios";
-import aws from "aws-sdk";
-
-aws.config.setPromisesDependency();
-aws.config.update({
-  accessKeyId: "",
-  secretAccessKey: "",
-  region: "us-east-1",
-});
-const s3 = new aws.S3();
+import React from 'react';
+import axios from 'axios';
+import '../styles/component.css';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export default function DisplayedComponent() {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
   const [jsFile, setJsFile] = React.useState(undefined);
   const [textFile, setTextFile] = React.useState(undefined);
-
-  async function getFileContent(path) {
-    // let resultUrl = undefined;
-    const params = {
-      Bucket: "cohortgroupbucket135153-cohortfive",
-      Key: path,
-      Expires: 30,
-    };
-
-    s3.getSignedUrlPromise("getObject", params)
-      .then(async (url) => {
-        console.log(url);
-        const response = await axios.get(url);
-        console.log(response.data);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  //   async function getFileContent(path) {
-  //     const tempUrl = getUrl(path);
-
-  //   }
-
-  async function getSource() {
-    const source = await getFileContent(
-      "public/mike/components/TestComponent/recursion.js"
-    );
-    console.log(source);
-    setJsFile(source);
-  }
-
-  async function getReadMe() {
-    const readMe = await getFileContent(
-      "public/mike/components/TestComponent/private.txt"
-    );
-    console.log(readMe);
-    setTextFile(readMe);
-  }
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
   React.useEffect(() => {
     (async function () {
       try {
-        const screenshotPath =
-          "public/mike/components/TestComponent/Itachi Uchiha.jpg";
-        console.log("file path:", screenshotPath);
-        setScreenshotUrl(getFileContent(screenshotPath));
-
-        // const jsfilePath = "public/mike/components/TestComponent/recursion.js";
-        // console.log("file path:", jsfilePath);
-        // setJsFile(getUrl(jsfilePath));
-
-        // const textPath = "public/mike/components/TestComponent/private.txt";
-        // console.log("file path:", textPath);
-        // setTextFile(getUrl(textPath));
+        const resultUrl = await axios.post(
+          'http://localhost:4000/get-s3-component-screenshot',
+        );
+        setScreenshotUrl(resultUrl.data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
+
+  async function getSource() {
+    try {
+      if (jsFile) {
+        setIsExpanded(false);
+        setJsFile(undefined);
+        //set width to 40%
+      } else {
+        const resultUrl = await axios.post(
+          'http://localhost:4000/get-s3-component-js',
+        );
+        const fileContent = await axios.get(resultUrl.data);
+        console.log('file content: ', fileContent);
+        setIsExpanded(true);
+        //set width to 100%
+        setTextFile(undefined);
+        setJsFile(fileContent.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function getReadMe() {
+    try {
+      if (textFile) {
+        setTextFile(undefined);
+        setIsExpanded(false);
+        //set width to 40%
+      } else {
+        const resultUrl = await axios.post(
+          'http://localhost:4000/get-s3-component-readme',
+        );
+        const fileContent = await axios.get(resultUrl.data);
+        console.log('file content: ', fileContent);
+        setIsExpanded(true);
+        //set width to 100%
+        setJsFile(undefined);
+        setTextFile(fileContent.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <div>
-      <img src={screenshotUrl} alt="Our Hopeful Screenshot" />
-      <button onClick={() => getSource()}>Source</button>
-      <button onClick={() => getReadMe()}>Read Me</button>
+    // <div className="component-main">
+    <div className={isExpanded ? 'component-main-expanded' : 'component-main'}>
+      <div>Test Component</div>
+      <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="100%" />
+      <div className="component-buttons">
+        <button onClick={() => getSource()}>Source Code</button>
+        <button onClick={() => getReadMe()}>Read Me</button>
+        <CopyToClipboard text={jsFile}>
+          <button
+            onClick={() => window.alert('Code was copied!')}
+            disabled={!isExpanded}
+          >
+            Copy Source
+          </button>
+        </CopyToClipboard>
+      </div>
+      <pre className="code-container">{jsFile ? jsFile : <></>}</pre>
+      <pre className="readme-container">{textFile ? textFile : <></>}</pre>
     </div>
   );
 }
