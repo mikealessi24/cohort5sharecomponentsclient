@@ -1,0 +1,27 @@
+.component-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 40%;
+  /* height: 40%; */
+  /* height: 200px; */
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
+}
+
+.component-main-expanded {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 90%;
+  /* height: 40%; */
+  /* height: 200px; */
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.component-buttons {
+}
