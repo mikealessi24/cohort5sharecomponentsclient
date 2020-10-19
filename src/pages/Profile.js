@@ -1,9 +1,10 @@
-import React from 'react';
-import S3ImageUpload from '../components/S3ImageUpload';
-import axios from 'axios';
-import S3ComponentUpload from '../components/S3ComponentUpload';
-import DisplayedComponent from '../components/DisplayedComponent';
-import '../styles/profile.css';
+import React from "react";
+import S3ImageUpload from "../components/S3ImageUpload";
+import axios from "axios";
+import S3ComponentUpload from "../components/S3ComponentUpload";
+import DisplayedComponent from "../components/DisplayedComponent";
+import "../styles/profile.css";
+import ModalUpload from "../components/ModalUpload";
 
 export default function Profile({ signedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
@@ -12,13 +13,13 @@ export default function Profile({ signedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post('http://localhost:4000/user', {
+        const response = await axios.post("http://localhost:4000/user", {
           token,
         });
         setCurrentUser(response.data);
-        console.log('this is the response', response);
-        console.log('current user log', currentUser);
-        const avatar = await axios.post('http://localhost:4000/get-s3-pic', {
+        console.log("this is the response", response);
+        console.log("current user log", currentUser);
+        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
           token,
         });
         console.log(avatar);
@@ -44,7 +45,7 @@ export default function Profile({ signedIn }) {
         <DisplayedComponent />
       </div>
       <div className="profile-right">
-        <S3ComponentUpload signedIn={signedIn} />
+        <ModalUpload signedIn={signedIn} />
       </div>
     </div>
   );
