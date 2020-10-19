@@ -53,13 +53,21 @@ export default function S3ComponentUpload({ signedIn }) {
 
   return (
     <>
-      <input
-        type="file"
-        accept="text/javascript"
-        onChange={(evt) => onChange(evt)}
-      />
-      <button onClick={onClick}>Upload</button>
-      {/* <pre>{s3data}</pre> */}
+      <form>
+        <input type="text" />
+        <input
+          type="file"
+          accept="text/javascript"
+          onChange={(evt) => onChange(evt)}
+        />
+
+        {/* <button onClick={onClick}>Upload JS</button> */}
+        {/* <pre>{s3data}</pre> */}
+        <input type="file" accept="image/*" onChange={(evt) => onChange(evt)} />
+        {/* <button onClick={onClick}>Upload ScreenShot</button> */}
+        <textarea placeholder="Enter ReadMe content"></textarea>
+        <button type="submit">Submit</button>
+      </form>
     </>
   );
 }
