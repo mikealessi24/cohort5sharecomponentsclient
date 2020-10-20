@@ -3,7 +3,6 @@ import axios from 'axios';
 import '../styles/component.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-//NEED TO UPDATE TO TAKE component.'path' for each of the s3 paths
 export default function DisplayedComponent({ component }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
   const [jsFile, setJsFile] = React.useState(undefined);
@@ -13,8 +12,13 @@ export default function DisplayedComponent({ component }) {
   React.useEffect(() => {
     (async function () {
       try {
+        console.log('@@@@@@@@@@@@@@');
+        const path = component.screenshot;
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-screenshot',
+          'http://localhost:4000/get-s3-component-screenshot2',
+          {
+            path,
+          },
         );
         setScreenshotUrl(resultUrl.data);
       } catch (error) {
