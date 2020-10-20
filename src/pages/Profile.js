@@ -58,7 +58,8 @@ export default function Profile({ signedIn }) {
         )}
       </div>
       <div className="profile-components-container">
-        {userComps && <DisplayComponent component={userComps[2]} />}
+      {userComps && userComps.map(comp => (<DisplayComponent component={comp}/>))}
+        {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
         <DisplayedComponent />
         <DisplayedComponent />
         <DisplayedComponent />
