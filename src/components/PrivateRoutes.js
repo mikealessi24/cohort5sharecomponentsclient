@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import Navbar from "./Navbar";
+import ViewUser from "../pages/ViewUser";
 
 export default function PrivateRoutes({ signedIn, setSignedIn }) {
   console.log(signedIn);
@@ -13,6 +14,7 @@ export default function PrivateRoutes({ signedIn, setSignedIn }) {
       <Router>
         <Home path="/home" signedIn={signedIn} setSignedIn={setSignedIn} />
         <Profile path="/profile" signedIn={signedIn} />
+        <ViewUser path="/viewuser/:creator" signedIn={signedIn} />
         <NotFound default />
       </Router>
     </>
