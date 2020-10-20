@@ -1,0 +1,25 @@
+.home-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.home-components-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  border: 1px solid black;
+  /* height: 100vh; */
+}
+
+.profile-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 15%;
+}
+
+.profile-right {
+  width: 15%;
+}

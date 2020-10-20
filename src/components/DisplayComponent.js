@@ -35,7 +35,7 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-js',
+          'http://localhost:4000/get-s3-component-js2', {path:component.mainFile}
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -57,7 +57,7 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-readme',
+          'http://localhost:4000/get-s3-component-readme2', {path:component.readMe}
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);

@@ -3,6 +3,8 @@ import { Link } from "@reach/router";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import axios from "axios";
+import DisplayComponent from "../components/DisplayComponent"
+import '../styles/home.css';
 
 // import { useStore } from 'react-redux';
 
@@ -11,6 +13,8 @@ export default function Home({ signedIn, setSignedIn }) {
   //   const store = useStore();
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
+  const [allComps, setAllComps] = React.useState(undefined);
+
   React.useEffect(() => {
     (async function () {
       try {
@@ -26,24 +30,24 @@ export default function Home({ signedIn, setSignedIn }) {
         });
         console.log(avatar);
         setS3Url(avatar.data);
+        const comps = await axios.post("http://localhost:4000/get-all-comps", {token})
+        setAllComps(comps.data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
   return (
-    <div style={style.home}>
-      {/* {store.getState()} */}
+    <div className="home-container">
       <div className="profile-left">
         <img width="80px" src={s3Url} alt="avatar" />
         <h2>Name</h2>
       </div>
-      <div>Content</div>
+      
+    <div className="home-components-container">
+      {/* {store.getState()} */}
+      {allComps && allComps.map(comp => <DisplayComponent component = {comp}/>)}
+    </div>
     </div>
   );
 }
-const style = {
-  home: {
-    display: "flex",
-  },
-};
