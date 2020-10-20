@@ -8,39 +8,86 @@ import ModalUpload from "../components/ModalUpload";
 import ProfileEdit from "../components/ProfileEdit";
 import DisplayComponent from "../components/DisplayComponent";
 
+//add a follow button
+//get rid of the right side of the page
+//actually render the user's components - completed!!!
+//
+
 export default function ViewUser({ creator, signedIn }) {
   console.log("We got the creator", creator);
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const [isFollowed, setIsFollowed] = React.useState(undefined);
+  //   const [isExpanded, setIsExpanded] = React.useState(false);
 
   React.useEffect(() => {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/user", {
+        const response = await axios.post("http://localhost:4000/creator", {
           token,
+          creator,
         });
         setCurrentUser(response.data);
         // console.log("this is the response", response);
         // console.log('current user log', currentUser);
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
-          token,
-        });
+        const avatar = await axios.post(
+          "http://localhost:4000/get-creator-s3-pic",
+          {
+            token,
+            creator,
+          }
+        );
         // console.log(avatar);
         setS3Url(avatar.data);
 
-        const comps = await axios.post("http://localhost:4000/get-user-comps", {
-          token,
-        });
+        const comps = await axios.post(
+          "http://localhost:4000/get-creator-comps",
+          {
+            token,
+            creator,
+          }
+        );
         setUserComps(comps.data);
+
+        const following = await axios.post(
+          "http://localhost:4000/get-followed-user",
+          { token }
+        );
+        const followed = following.data.map((el) => el.followedUser);
+        setIsFollowed(followed.includes(creator));
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
   console.log(userComps);
+
+  async function followUser() {
+    try {
+      await axios.post("http://localhost:4000/follow-user", {
+        followedUser: creator,
+        token: signedIn.signInUserSession.idToken.jwtToken,
+      });
+      setIsFollowed(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function unfollowUser() {
+    try {
+      await axios.post("http://localhost:4000/delete-followed-user", {
+        followedUser: creator,
+        token: signedIn.signInUserSession.idToken.jwtToken,
+      });
+      setIsFollowed(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="profile-container">
       <div className="profile-left">
@@ -49,14 +96,27 @@ export default function ViewUser({ creator, signedIn }) {
         <h3>About: {currentUser && currentUser.about}</h3>
         <h3>Github: {currentUser && currentUser.githubLink}</h3>
 
-        <button onClick={() => setIsExpanded(true)}>Edit</button>
+        {!isFollowed ? (
+          <button className="button follow-button" onClick={() => followUser()}>
+            Follow {currentUser && currentUser.username}
+          </button>
+        ) : (
+          <button
+            className="button unfollow-button"
+            onClick={() => unfollowUser()}
+          >
+            Unfollow User
+          </button>
+        )}
+
+        {/* <button onClick={() => setIsExpanded(true)}>Edit</button>
         {isExpanded ? (
           <div className="profile-edit-container">
             <ProfileEdit signedIn={signedIn} setIsExpanded={setIsExpanded} />
           </div>
         ) : (
           <></>
-        )}
+        )} */}
       </div>
       <div className="profile-components-container">
         {userComps &&
@@ -66,9 +126,6 @@ export default function ViewUser({ creator, signedIn }) {
         <DisplayedComponent />
         <DisplayedComponent />
         <DisplayedComponent />
-      </div>
-      <div className="profile-right">
-        <ModalUpload signedIn={signedIn} />
       </div>
     </div>
   );

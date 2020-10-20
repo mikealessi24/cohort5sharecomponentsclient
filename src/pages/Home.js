@@ -3,8 +3,8 @@ import { Link } from "@reach/router";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import axios from "axios";
-import DisplayComponent from "../components/DisplayComponent"
-import '../styles/home.css';
+import DisplayComponent from "../components/DisplayComponent";
+import "../styles/home.css";
 
 // import { useStore } from 'react-redux';
 
@@ -30,7 +30,9 @@ export default function Home({ signedIn, setSignedIn }) {
         });
         console.log(avatar);
         setS3Url(avatar.data);
-        const comps = await axios.post("http://localhost:4000/get-all-comps", {token})
+        const comps = await axios.post("http://localhost:4000/get-all-comps", {
+          token,
+        });
         setAllComps(comps.data);
       } catch (error) {
         console.log(error);
@@ -43,11 +45,12 @@ export default function Home({ signedIn, setSignedIn }) {
         <img width="80px" src={s3Url} alt="avatar" />
         <h2>Name</h2>
       </div>
-      
-    <div className="home-components-container">
-      {/* {store.getState()} */}
-      {allComps && allComps.map(comp => <DisplayComponent component = {comp}/>)}
-    </div>
+
+      <div className="home-components-container">
+        {/* {store.getState()} */}
+        {allComps &&
+          allComps.map((comp) => <DisplayComponent component={comp} />)}
+      </div>
     </div>
   );
 }

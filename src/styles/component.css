@@ -23,5 +23,15 @@
   margin: 10px;
 }
 
+.creator-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.creator-link:hover {
+  color: aqua;
+  cursor: pointer;
+}
+
 .component-buttons {
 }

@@ -78,8 +78,11 @@ export default function DisplayedComponent({ component }) {
     // <div className="component-main">
     <div className={isExpanded ? "component-main-expanded" : "component-main"}>
       <div>{component.title}</div>
-      <div onClick={() => navigate(`/viewuser/${component.creator}`)}>
-        Creator
+      <div
+        className="creator-link"
+        onClick={() => navigate(`/viewuser/${component.creator}`)}
+      >
+        {component.creator}
       </div>
       <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="100%" />
       <div className="component-buttons">
