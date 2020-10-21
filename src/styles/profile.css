@@ -1,6 +1,6 @@
 .profile-container {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   width: 100%;
 }
 
@@ -9,17 +9,35 @@
   justify-content: center;
   flex-wrap: wrap;
   width: 70%;
+  height: 100%;
   border: 1px solid black;
+  position: fixed;
+  right: 15%;
+  overflow: scroll;
   /* height: 100vh; */
 }
 
 .profile-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: 15%;
 }
 
 .profile-right {
   width: 15%;
+  position: fixed;
+  right: 0;
+}
+
+.follow-button {
+  color: green;
+}
+
+.unfollow-button {
+  color: red;
+}
+
+.button:hover {
+  cursor: pointer;
 }

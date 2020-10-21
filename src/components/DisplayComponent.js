@@ -1,7 +1,8 @@
-import React from 'react';
-import axios from 'axios';
-import '../styles/component.css';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import React from "react";
+import axios from "axios";
+import "../styles/component.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { navigate } from "@reach/router";
 
 export default function DisplayedComponent({ component }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
@@ -12,13 +13,13 @@ export default function DisplayedComponent({ component }) {
   React.useEffect(() => {
     (async function () {
       try {
-        console.log('@@@@@@@@@@@@@@');
+        console.log("@@@@@@@@@@@@@@");
         const path = component.screenshot;
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-screenshot2',
+          "http://localhost:4000/get-s3-component-screenshot2",
           {
             path,
-          },
+          }
         );
         setScreenshotUrl(resultUrl.data);
       } catch (error) {
@@ -35,7 +36,8 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-js2', {path:component.mainFile}
+          "http://localhost:4000/get-s3-component-js2",
+          { path: component.mainFile }
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -57,7 +59,8 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-readme2', {path:component.readMe}
+          "http://localhost:4000/get-s3-component-readme2",
+          { path: component.readMe }
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -73,15 +76,21 @@ export default function DisplayedComponent({ component }) {
 
   return (
     // <div className="component-main">
-    <div className={isExpanded ? 'component-main-expanded' : 'component-main'}>
-      <div>Test Component</div>
+    <div className={isExpanded ? "component-main-expanded" : "component-main"}>
+      <div>{component.title}</div>
+      <div
+        className="creator-link"
+        onClick={() => navigate(`/viewuser/${component.creator}`)}
+      >
+        {component.creator}
+      </div>
       <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="100%" />
       <div className="component-buttons">
         <button onClick={() => getSource()}>Source Code</button>
         <button onClick={() => getReadMe()}>Read Me</button>
         <CopyToClipboard text={jsFile}>
           <button
-            onClick={() => window.alert('Code was copied!')}
+            onClick={() => window.alert("Code was copied!")}
             disabled={!isExpanded}
           >
             Copy Source

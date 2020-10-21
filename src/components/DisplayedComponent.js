@@ -1,7 +1,7 @@
-import React from 'react';
-import axios from 'axios';
-import '../styles/component.css';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import React from "react";
+import axios from "axios";
+import "../styles/component.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 //NEED TO UPDATE TO TAKE component.'path' for each of the s3 paths
 export default function DisplayedComponent({ component }) {
@@ -14,7 +14,7 @@ export default function DisplayedComponent({ component }) {
     (async function () {
       try {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-screenshot',
+          "http://localhost:4000/get-s3-component-screenshot"
         );
         setScreenshotUrl(resultUrl.data);
       } catch (error) {
@@ -31,7 +31,7 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-js',
+          "http://localhost:4000/get-s3-component-js"
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -53,7 +53,7 @@ export default function DisplayedComponent({ component }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'http://localhost:4000/get-s3-component-readme',
+          "http://localhost:4000/get-s3-component-readme"
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -69,7 +69,7 @@ export default function DisplayedComponent({ component }) {
 
   return (
     // <div className="component-main">
-    <div className={isExpanded ? 'component-main-expanded' : 'component-main'}>
+    <div className={isExpanded ? "component-main-expanded" : "component-main"}>
       <div>Test Component</div>
       <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="100%" />
       <div className="component-buttons">
@@ -77,7 +77,7 @@ export default function DisplayedComponent({ component }) {
         <button onClick={() => getReadMe()}>Read Me</button>
         <CopyToClipboard text={jsFile}>
           <button
-            onClick={() => window.alert('Code was copied!')}
+            onClick={() => window.alert("Code was copied!")}
             disabled={!isExpanded}
           >
             Copy Source

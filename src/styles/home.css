@@ -1,6 +1,6 @@
 .home-container {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
   width: 100%;
 }
 
@@ -8,16 +8,24 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100%;
+  width: 80%;
+  height: 100%;
   border: 1px solid black;
-  /* height: 100vh; */
+  overflow: scroll;
+  position: fixed;
+  right: 0;
 }
 
 .profile-left {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: 15%;
+  height: 50%;
+  border: 1px solid black;
+  position: fixed;
+  left: 10;
+  top: 15;
 }
 
 .profile-right {
