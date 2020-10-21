@@ -3,62 +3,73 @@ import uuid from "uuid/dist/v4";
 import { Storage } from "aws-amplify";
 import axios from "axios";
 
-export default function S3ComponentUpload({ signedIn }) {
-  async function uploadComponent(e) {
+export default function S3ComponentUpdater({ signedIn, component }) {
+  async function updateComp(e) {
     try {
       e.preventDefault();
+      const componentUuid = component.componentUuid;
       // console.log(e.target.elements.files);
       // console.log(e.target.elements.mainFile.files[0]);
-      const title = e.target.elements.title.value;
+      let title;
+      if (e.target.elements.title.value) {
+        title = e.target.elements.title.value;
+      } else {
+        title = component.title;
+      }
       const mainFile = e.target.elements.mainFile.files[0];
       const screenshot = e.target.elements.screenshot.files[0];
       const readMe = e.target.elements.readMe.value;
-
-      if (title && mainFile && screenshot && readMe) {
+      let mainFileUrl;
+      let screenshotUrl;
+      let readMeUrl;
+      if (mainFile) {
         const componentUuid = uuid();
-        const mainFileUrl = await Storage.put(
+        const foo = await Storage.put(
           `${signedIn.username}/components/${componentUuid}/${title}.js`,
           mainFile,
           {
             contentType: "text/javascript",
           }
         );
-        const screenshotUrl = await Storage.put(
+        mainFileUrl = foo.key;
+      } else {
+        mainFileUrl = component.mainFile;
+      }
+      if (screenshot) {
+        const foo = await Storage.put(
           `${signedIn.username}/components/${componentUuid}/${title}.png`,
           screenshot,
           {
             contentType: "image/png",
           }
         );
-        const readMeUrl = await Storage.put(
+        screenshotUrl = foo.key;
+      } else {
+        screenshotUrl = component.screenshot;
+      }
+      if (readMe) {
+        const foo = await Storage.put(
           `${signedIn.username}/components/${componentUuid}/${title}.txt`,
           readMe,
           {
             contentType: "text/plain",
           }
         );
-        const resp = await axios.post(
-          "http://localhost:4000/create-component",
-          {
-            componentUuid,
-            title,
-            token: signedIn.signInUserSession.idToken.jwtToken,
-            mainFileUrl,
-            readMeUrl,
-            screenshotUrl,
-          }
-        );
-        console.log(resp);
-        window.alert("Successful upload! WOHOOO!!");
+        readMeUrl = foo.key;
       } else {
-        window.alert("WOOOOPS!! You are missing a required field!!!");
-        //one of the fields was undefined
+        readMeUrl = component.readMe;
       }
 
-      //get all form data
-      //check if all form data was entered
-      //enter data into s3
-      //enter result data in sql table
+      const resp = await axios.post("http://localhost:4000/update-component", {
+        componentUuid,
+        title,
+        token: signedIn.signInUserSession.idToken.jwtToken,
+        mainFileUrl,
+        readMeUrl,
+        screenshotUrl,
+      });
+      console.log(resp);
+      window.alert("Successful upload! WOHOOO!!");
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +79,7 @@ export default function S3ComponentUpload({ signedIn }) {
   //add to sql table
   return (
     <>
-      <form onSubmit={(e) => uploadComponent(e)}>
+      <form onSubmit={(e) => updateComp(e)}>
         <input type="text" id="title" />
         <input type="file" accept="text/javascript" id="mainFile" />
 
