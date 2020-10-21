@@ -1,6 +1,6 @@
-import React from 'react';
-import S3ImageUpload from './S3ImageUpload';
-import axios from 'axios';
+import React from "react";
+import S3ImageUpload from "./S3ImageUpload";
+import axios from "axios";
 
 export default function ProfileEdit({ setIsExpanded, signedIn }) {
   async function updateProfile(e) {
@@ -8,13 +8,13 @@ export default function ProfileEdit({ setIsExpanded, signedIn }) {
     try {
       const name = e.target.elements.name.value;
       const aboutMe = e.target.elements.aboutMe.value;
-      const resp = await axios.post('http://localhost:4000/update-user', {
+      const resp = await axios.post("http://localhost:4000/update-user", {
         token: signedIn.signInUserSession.idToken.jwtToken,
         name,
         aboutMe,
       });
       console.log(resp);
-      window.alert('succesfully update profile');
+      window.alert("succesfully update profile");
       setIsExpanded(false);
     } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ export default function ProfileEdit({ setIsExpanded, signedIn }) {
           <label>About Me: </label>
           <textarea id="aboutMe"></textarea>
         </div>
-        <S3ImageUpload />
+        <S3ImageUpload signedIn={signedIn} />
         <div>
           <button type="submit">Save</button>
           <button onClick={() => setIsExpanded(false)}>Cancel</button>
