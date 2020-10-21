@@ -3,11 +3,12 @@ import S3ImageUpload from "../components/S3ImageUpload";
 import axios from "axios";
 import S3ComponentUpload from "../components/S3ComponentUpload";
 import DisplayedComponent from "../components/DisplayedComponent";
-import "../styles/profile.css";
+// import "../styles/profile.css";
 import ModalUpload from "../components/ModalUpload";
 import ProfileEdit from "../components/ProfileEdit";
 import DisplayComponent from "../components/DisplayComponent";
 import ModalUpdate from "../components/ModalUpdate";
+import Navbar from "../components/Navbar";
 
 export default function Profile({ signedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
@@ -62,6 +63,7 @@ export default function Profile({ signedIn }) {
   return (
     <div className="profile-container">
       <div className="profile-left">
+        <Navbar />
         <img width="80px" src={s3Url} alt="avatar" />
         <h2>Name: {currentUser && currentUser.name}</h2>
         <h3>About: {currentUser && currentUser.about}</h3>
