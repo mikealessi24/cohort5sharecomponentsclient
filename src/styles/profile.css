@@ -1,6 +1,6 @@
-.profile-container {
-  /* display: flex;
-  justify-content: space-between; */
+/* .profile-container {
+ display: flex;
+  justify-content: space-between; 
   width: 100%;
 }
 
@@ -14,7 +14,7 @@
   position: fixed;
   right: 15%;
   overflow: scroll;
-  /* height: 100vh; */
+ height: 100vh; 
 }
 
 .profile-left {
@@ -22,6 +22,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 15%;
+
 }
 
 .profile-right {
@@ -40,4 +41,4 @@
 
 .button:hover {
   cursor: pointer;
-}
+} */

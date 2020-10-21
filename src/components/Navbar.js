@@ -34,5 +34,6 @@ const style = {
     display: "flex",
     justifyContent: "space-between",
     height: "35px",
+    flexDirection: "column",
   },
 };

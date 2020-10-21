@@ -1,6 +1,6 @@
 .home-container {
-  /* display: flex; */
-  /* justify-content: space-between; */
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -12,22 +12,13 @@
   height: 100%;
   border: 1px solid black;
   overflow: scroll;
-  position: fixed;
-  right: 0;
 }
 
-.profile-left {
+.home-left {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 15%;
-  height: 50%;
+  height: 100%;
   border: 1px solid black;
-  position: fixed;
-  left: 10;
-  top: 15;
-}
-
-.profile-right {
-  width: 15%;
 }

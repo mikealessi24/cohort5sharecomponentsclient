@@ -5,6 +5,8 @@ import { navigate } from "@reach/router";
 import axios from "axios";
 import DisplayComponent from "../components/DisplayComponent";
 import "../styles/home.css";
+import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
 
 // import { useStore } from 'react-redux';
 
@@ -41,11 +43,14 @@ export default function Home({ signedIn, setSignedIn }) {
   }, []);
   return (
     <div className="home-container">
-      <div className="profile-left">
+      <div className="home-left">
+        <Navbar />
         <img width="80px" src={s3Url} alt="avatar" />
         <h2>Name</h2>
       </div>
-
+      <div>
+        <SearchBar />
+      </div>
       <div className="home-components-container">
         {/* {store.getState()} */}
         {allComps &&
