@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
+// import "../styles/navbar.css";
 
 export default function Navbar({ setSignedIn }) {
   return (
-    <div style={style.nav}>
+    <div className="profile-navs">
       <Link to="/home">
         <button>Home</button>
       </Link>
@@ -29,11 +30,3 @@ export default function Navbar({ setSignedIn }) {
     </div>
   );
 }
-const style = {
-  nav: {
-    display: "flex",
-    justifyContent: "space-between",
-    height: "35px",
-    flexDirection: "column",
-  },
-};

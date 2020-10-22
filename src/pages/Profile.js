@@ -9,8 +9,9 @@ import ProfileEdit from '../components/ProfileEdit';
 import DisplayComponent from '../components/DisplayComponent';
 import ModalUpdate from '../components/ModalUpdate';
 import Navbar from '../components/Navbar';
+import AddTag from '../components/AddTag';
 
-export default function Profile({ signedIn }) {
+export default function Profile({ signedIn, setSignedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
@@ -63,7 +64,7 @@ export default function Profile({ signedIn }) {
   return (
     <div className="profile-container">
       <div className="profile-left">
-        <Navbar />
+        <Navbar setSignedIn={setSignedIn} />
         <img width="80px" src={s3Url} alt="avatar" />
         <h2>Name: {currentUser && currentUser.name}</h2>
         <h3>About: {currentUser && currentUser.about}</h3>
@@ -87,6 +88,7 @@ export default function Profile({ signedIn }) {
                 delete
               </button>
               <ModalUpdate component={comp} signedIn={signedIn} />
+              <AddTag component={comp} signedIn={signedIn} />
             </div>
           ))}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}

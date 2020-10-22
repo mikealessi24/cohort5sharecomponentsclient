@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../styles/component.css';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { navigate } from '@reach/router';
+import Paper from '@material-ui/core/Paper';
 
 export default function DisplayedComponent({ component, signedIn }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
@@ -83,7 +84,8 @@ export default function DisplayedComponent({ component, signedIn }) {
 
   return (
     // <div className="component-main">
-    <div className={isExpanded ? 'component-main-expanded' : 'component-main'}>
+
+    <Paper className="component-main">
       <div>{component.title}</div>
       <div
         className="creator-link"
@@ -91,7 +93,10 @@ export default function DisplayedComponent({ component, signedIn }) {
       >
         {component.creator}
       </div>
-      <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="100%" />
+      <div className="screenshot-cont">
+        <img src={screenshotUrl} alt="Our Hopeful Screenshot" width="80%" />
+      </div>
+
       <div className="component-buttons">
         <button onClick={() => getSource()}>Source Code</button>
         <button onClick={() => getReadMe()}>Read Me</button>
@@ -113,6 +118,6 @@ export default function DisplayedComponent({ component, signedIn }) {
       </div>
       <pre className="code-container">{jsFile ? jsFile : <></>}</pre>
       <pre className="readme-container">{textFile ? textFile : <></>}</pre>
-    </div>
+    </Paper>
   );
 }

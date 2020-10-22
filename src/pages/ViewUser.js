@@ -1,12 +1,12 @@
-import React from "react";
-import S3ImageUpload from "../components/S3ImageUpload";
-import axios from "axios";
-import S3ComponentUpload from "../components/S3ComponentUpload";
-import DisplayedComponent from "../components/DisplayedComponent";
-import "../styles/profile.css";
-import ModalUpload from "../components/ModalUpload";
-import ProfileEdit from "../components/ProfileEdit";
-import DisplayComponent from "../components/DisplayComponent";
+import React from 'react';
+import S3ImageUpload from '../components/S3ImageUpload';
+import axios from 'axios';
+import S3ComponentUpload from '../components/S3ComponentUpload';
+import DisplayedComponent from '../components/DisplayedComponent';
+import '../styles/profile.css';
+import ModalUpload from '../components/ModalUpload';
+import ProfileEdit from '../components/ProfileEdit';
+import DisplayComponent from '../components/DisplayComponent';
 
 //add a follow button
 //get rid of the right side of the page
@@ -14,7 +14,7 @@ import DisplayComponent from "../components/DisplayComponent";
 //
 
 export default function ViewUser({ creator, signedIn }) {
-  console.log("We got the creator", creator);
+  console.log('We got the creator', creator);
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
@@ -25,7 +25,7 @@ export default function ViewUser({ creator, signedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/creator", {
+        const response = await axios.post('http://localhost:4000/creator', {
           token,
           creator,
         });
@@ -33,27 +33,27 @@ export default function ViewUser({ creator, signedIn }) {
         // console.log("this is the response", response);
         // console.log('current user log', currentUser);
         const avatar = await axios.post(
-          "http://localhost:4000/get-creator-s3-pic",
+          'http://localhost:4000/get-creator-s3-pic',
           {
             token,
             creator,
-          }
+          },
         );
         // console.log(avatar);
         setS3Url(avatar.data);
 
         const comps = await axios.post(
-          "http://localhost:4000/get-creator-comps",
+          'http://localhost:4000/get-creator-comps',
           {
             token,
             creator,
-          }
+          },
         );
         setUserComps(comps.data);
 
         const following = await axios.post(
-          "http://localhost:4000/get-followed-user",
-          { token }
+          'http://localhost:4000/get-followed-user',
+          { token },
         );
         const followed = following.data.map((el) => el.followedUser);
         setIsFollowed(followed.includes(creator));
@@ -66,7 +66,7 @@ export default function ViewUser({ creator, signedIn }) {
 
   async function followUser() {
     try {
-      await axios.post("http://localhost:4000/follow-user", {
+      await axios.post('http://localhost:4000/follow-user', {
         followedUser: creator,
         token: signedIn.signInUserSession.idToken.jwtToken,
       });
@@ -78,7 +78,7 @@ export default function ViewUser({ creator, signedIn }) {
 
   async function unfollowUser() {
     try {
-      await axios.post("http://localhost:4000/delete-followed-user", {
+      await axios.post('http://localhost:4000/delete-followed-user', {
         followedUser: creator,
         token: signedIn.signInUserSession.idToken.jwtToken,
       });
@@ -122,10 +122,6 @@ export default function ViewUser({ creator, signedIn }) {
         {userComps &&
           userComps.map((comp) => <DisplayComponent component={comp} />)}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
-        <DisplayedComponent />
-        <DisplayedComponent />
-        <DisplayedComponent />
-        <DisplayedComponent />
       </div>
     </div>
   );

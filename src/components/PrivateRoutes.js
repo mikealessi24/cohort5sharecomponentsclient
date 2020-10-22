@@ -7,6 +7,7 @@ import NotFound from "../pages/NotFound";
 // import Navbar2 from "./Navbar2";
 import ViewUser from "../pages/ViewUser";
 import SearchPage from "../pages/SearchPage";
+import TagSearch from "../pages/TagSearch";
 
 export default function PrivateRoutes({ signedIn, setSignedIn }) {
   console.log(signedIn);
@@ -16,9 +17,14 @@ export default function PrivateRoutes({ signedIn, setSignedIn }) {
       {/* <Navbar2 setSignedIn={setSignedIn} /> */}
       <Router>
         <Home path="/home" signedIn={signedIn} setSignedIn={setSignedIn} />
-        <Profile path="/profile" signedIn={signedIn} />
+        <Profile
+          path="/profile"
+          signedIn={signedIn}
+          setSignedIn={setSignedIn}
+        />
         <ViewUser path="/viewuser/:creator" signedIn={signedIn} />
         <SearchPage path="/search/:search" signedIn={signedIn} />
+        <TagSearch path="/tag/:tag" signedIn={signedIn} />
         <NotFound default />
       </Router>
     </>

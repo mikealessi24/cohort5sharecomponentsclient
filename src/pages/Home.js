@@ -5,6 +5,7 @@ import { navigate } from '@reach/router';
 import axios from 'axios';
 import DisplayComponent from '../components/DisplayComponent';
 import '../styles/home.css';
+import '../styles/navbar.css';
 import Navbar from '../components/Navbar';
 import SearchBar from '../components/SearchBar';
 
@@ -44,10 +45,15 @@ export default function Home({ signedIn, setSignedIn }) {
   return (
     <div className="home-container">
       <div className="home-left">
-        <Navbar />
-        <img width="80px" src={s3Url} alt="avatar" />
+        <div className="profile-img">
+          <img width="80px" src={s3Url} alt="avatar" />
+        </div>
         <h2>Name</h2>
+        <div className="profile-navs">
+          <Navbar />
+        </div>
       </div>
+
       <div>
         <SearchBar />
       </div>
