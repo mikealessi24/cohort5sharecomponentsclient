@@ -4,6 +4,7 @@ import DisplayComponent from "../components/DisplayComponent";
 
 export default function SearchPage({ search, signedIn }) {
   const [searchComps, setSearchComps] = React.useState([]);
+
   React.useEffect(() => {
     (async function () {
       try {
@@ -13,10 +14,13 @@ export default function SearchPage({ search, signedIn }) {
           search,
         });
         setSearchComps(results.data);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
   console.log("search comps", searchComps);
+
   return (
     <div>
       {searchComps[0] ? (
