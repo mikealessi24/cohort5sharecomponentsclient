@@ -1,14 +1,14 @@
-import React from "react";
-import S3ImageUpload from "../components/S3ImageUpload";
-import axios from "axios";
-import S3ComponentUpload from "../components/S3ComponentUpload";
-import DisplayedComponent from "../components/DisplayedComponent";
+import React from 'react';
+import S3ImageUpload from '../components/S3ImageUpload';
+import axios from 'axios';
+import S3ComponentUpload from '../components/S3ComponentUpload';
+import DisplayedComponent from '../components/DisplayedComponent';
 // import "../styles/profile.css";
-import ModalUpload from "../components/ModalUpload";
-import ProfileEdit from "../components/ProfileEdit";
-import DisplayComponent from "../components/DisplayComponent";
-import ModalUpdate from "../components/ModalUpdate";
-import Navbar from "../components/Navbar";
+import ModalUpload from '../components/ModalUpload';
+import ProfileEdit from '../components/ProfileEdit';
+import DisplayComponent from '../components/DisplayComponent';
+import ModalUpdate from '../components/ModalUpdate';
+import Navbar from '../components/Navbar';
 
 export default function Profile({ signedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
@@ -20,18 +20,18 @@ export default function Profile({ signedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/user", {
+        const response = await axios.post('http://localhost:4000/user', {
           token,
         });
         setCurrentUser(response.data);
         // console.log("this is the response", response);
         // console.log('current user log', currentUser);
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
+        const avatar = await axios.post('http://localhost:4000/get-s3-pic', {
           token,
         });
-        console.log("the avatar:", avatar);
+        console.log('the avatar:', avatar);
         setS3Url(avatar.data);
-        console.log("avatar url", s3Url);
+        console.log('avatar url', s3Url);
 
         getUserComps(token);
       } catch (error) {
@@ -42,7 +42,7 @@ export default function Profile({ signedIn }) {
   console.log(userComps);
 
   async function getUserComps(token) {
-    const comps = await axios.post("http://localhost:4000/get-user-comps", {
+    const comps = await axios.post('http://localhost:4000/get-user-comps', {
       token,
     });
     setUserComps(comps.data);
@@ -50,7 +50,7 @@ export default function Profile({ signedIn }) {
 
   async function deleteComp(id) {
     try {
-      await axios.post("http://localhost:4000/delete-component", {
+      await axios.post('http://localhost:4000/delete-component', {
         token: signedIn.signInUserSession.idToken.jwtToken,
         componentId: id,
       });
@@ -82,7 +82,7 @@ export default function Profile({ signedIn }) {
         {userComps &&
           userComps.map((comp) => (
             <div>
-              <DisplayComponent component={comp} />
+              <DisplayComponent component={comp} signedIn={signedIn} />
               <button onClick={() => deleteComp(comp.componentId)}>
                 delete
               </button>
