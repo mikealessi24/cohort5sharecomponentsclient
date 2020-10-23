@@ -2,6 +2,7 @@ import React from "react";
 import uuid from "uuid/dist/v4";
 import { Storage } from "aws-amplify";
 import axios from "axios";
+import "../styles/component.css";
 
 export default function S3ComponentUpload({ signedIn }) {
   async function uploadComponent(e) {
@@ -68,13 +69,33 @@ export default function S3ComponentUpload({ signedIn }) {
   //add to sql table
   return (
     <>
-      <form onSubmit={(e) => uploadComponent(e)}>
-        <input type="text" id="title" />
-        <input type="file" accept="text/javascript" id="mainFile" />
+      <form className="modal-container" onSubmit={(e) => uploadComponent(e)}>
+        <label>
+          {" "}
+          Title:
+          <input type="text" id="title" />
+        </label>
+        <label for="mainFile">Upload JS File</label>
+        <input
+          type="file"
+          accept="text/javascript"
+          id="mainFile"
+          name="mainFile"
+          style={{ display: "none" }}
+          className="jsinput"
+        />
 
         {/* <button onClick={onClick}>Upload JS</button> */}
         {/* <pre>{s3data}</pre> */}
-        <input type="file" accept="image/*" id="screenshot" />
+        <label for="screenshot">Upload Screenshot</label>
+        <input
+          type="file"
+          accept="image/*"
+          id="screenshot"
+          name="screenshot"
+          style={{ display: "none" }}
+          className="inputfile"
+        />
         {/* <button onClick={onClick}>Upload ScreenShot</button> */}
         <textarea placeholder="Enter ReadMe content" id="readMe"></textarea>
         <button type="submit">Submit</button>

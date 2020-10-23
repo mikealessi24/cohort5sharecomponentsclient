@@ -86,14 +86,14 @@ export default function Profile({ signedIn, setSignedIn }) {
       <div className="profile-components-container">
         {userComps &&
           userComps.map((comp) => (
-            <Paper>
+            <div className="display-component-container">
               <DisplayComponent component={comp} signedIn={signedIn} />
               <button onClick={() => deleteComp(comp.componentId)}>
                 delete
               </button>
               <ModalUpdate component={comp} signedIn={signedIn} />
               <AddTag component={comp} signedIn={signedIn} />
-            </Paper>
+            </div>
           ))}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
       </div>
