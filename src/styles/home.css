@@ -6,8 +6,9 @@
 
 .home-components-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   width: 80%;
   height: 100%;
   border: 1px solid black;
