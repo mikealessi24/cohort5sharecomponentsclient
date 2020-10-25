@@ -5,9 +5,10 @@ import { navigate } from "@reach/router";
 import axios from "axios";
 import DisplayComponent from "../components/DisplayComponent";
 import "../styles/home.css";
-import "../styles/navbar.css";
+// import "../styles/navbar.css";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
+// import ToggleTheme from "../components/ToggleTheme";
 
 // import { useStore } from 'react-redux';
 
@@ -54,13 +55,13 @@ export default function Home({ signedIn, setSignedIn }) {
         </div>
       </div>
 
-      <div>
-        <SearchBar />
-      </div>
       <div className="home-components-container">
         {/* {store.getState()} */}
         {allComps &&
           allComps.map((comp) => <DisplayComponent component={comp} />)}
+      </div>
+      <div className="home-right">
+        <SearchBar />
       </div>
     </div>
   );

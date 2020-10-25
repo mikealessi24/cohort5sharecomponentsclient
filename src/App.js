@@ -1,8 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
-// import "./App.css";
 import PublicRoutes from "./components/PublicRoutes";
 import PrivateRoutes from "./components/PrivateRoutes";
+// import ToggleTheme from "./components/ToggleTheme";
 import { Auth } from "aws-amplify";
 
 function App() {

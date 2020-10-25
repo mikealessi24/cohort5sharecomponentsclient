@@ -1,4 +1,4 @@
-.component-main {
+/* .component-main {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,32 +6,32 @@
   flex-wrap: wrap;
   width: 40%;
   /* height: 40%; */
-  /* height: 200px; */
-  border: 1px solid black;
-  margin: 10px;
-  padding: 10px;
-}
+/* height: 200px; */
+/* border: 1px solid black; */
+/* margin: 10px;
+  padding: 10px; */
+/* } */
 
-.component-main-expanded {
+/* .component-main-expanded {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 90%;
-  /* height: 40%; */
-  /* height: 200px; */
-  border: 1px solid black;
-  margin: 10px;
-}
+  width: 90%; */
+/* height: 40%; */
+/* height: 200px; */
+/* border: 1px solid black; */
+/* margin: 10px; */
+/* } */
 
-.creator-link {
+/* .creator-link {
   color: blue;
   text-decoration: underline;
-}
+} */
 
-.creator-link:hover {
+/* .creator-link:hover {
   color: aqua;
   cursor: pointer;
-}
+} */
 
-.component-buttons {
-}
+/* .component-buttons {
+}  */
