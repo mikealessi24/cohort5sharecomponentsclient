@@ -3,7 +3,7 @@ import S3ImageUpload from "../components/S3ImageUpload";
 import axios from "axios";
 import S3ComponentUpload from "../components/S3ComponentUpload";
 import DisplayedComponent from "../components/DisplayedComponent";
-// import "../styles/profile.css";
+import "../styles/profile.css";
 import ModalUpload from "../components/ModalUpload";
 import ProfileEdit from "../components/ProfileEdit";
 import DisplayComponent from "../components/DisplayComponent";
@@ -69,10 +69,11 @@ export default function Profile({ signedIn, setSignedIn }) {
         <div className="profile-img">
           <img width="80px" src={s3Url} alt="avatar" />
         </div>
+        <hr style={{ backgroundColor: "red" }} />
         <h2>Name: {currentUser && currentUser.name}</h2>
         <h3>About: {currentUser && currentUser.about}</h3>
         <h3>Github: {currentUser && currentUser.githubLink}</h3>
-
+        <hr style={{ backgroundColor: "red" }} />
         <button onClick={() => setIsExpanded(true)}>Edit</button>
         {isExpanded ? (
           <div className="profile-edit-container">

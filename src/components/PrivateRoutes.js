@@ -23,7 +23,11 @@ export default function PrivateRoutes({ signedIn, setSignedIn }) {
           setSignedIn={setSignedIn}
         />
         <ViewUser path="/viewuser/:creator" signedIn={signedIn} />
-        <SearchPage path="/search/:search" signedIn={signedIn} />
+        <SearchPage
+          path="/search/:search"
+          signedIn={signedIn}
+          setSignedIn={setSignedIn}
+        />
         <TagSearch path="/tag/:tag" signedIn={signedIn} />
         <NotFound default />
       </Router>
