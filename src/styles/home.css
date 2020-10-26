@@ -1,40 +1,48 @@
-.home-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+/* Apply the filter directly on the body tag */
+body.dark-theme img {
+  filter: brightness(0.8) contrast(1.2);
 }
 
-.home-components-container {
+/* Or apply it via media query */
+@media (prefers-color-scheme: dark) {
+  img {
+    filter: brightness(0.8) contrast(1.2);
+  }
+}
+
+.home-container {
+  display: grid;
+  grid-template-columns: 2fr, 6fr, 2fr;
+  grid-column-gap: 10px;
+  /* grid-template-rows: auto auto auto; */
+  /* grid-template-areas:
+    "home-left "
+    "home-components-container "
+    "home-right"; */
+  /* grid-template-rows: 1fr 1fr, 1fr, 1fr; */
+  /* justify-content: space-between;
+  width: 100%; */
+}
+
+/* .home-components-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
   width: 80%;
   height: 100%;
   border: 1px solid black;
   overflow: scroll;
-}
+} */
 
 .home-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 15%;
-  height: 100vh;
-  border: 1px solid black;
-  z-index: 9999;
+  grid-column: 1 / 3;
 }
 
-.profile-navs {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
-  /* border: 1px solid black; */
-  height: 35px;
-  z-index: 9999;
+.home-components-container {
+  grid-column: 3 / 6;
 }
 
-/* .profile-img {
-  border: 1px solid black;
-} */
+.home-right {
+  grid-column: 6 / 8;
+}

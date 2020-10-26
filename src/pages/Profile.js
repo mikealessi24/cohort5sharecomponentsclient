@@ -79,9 +79,8 @@ export default function Profile({ signedIn, setSignedIn }) {
             <ProfileEdit signedIn={signedIn} setIsExpanded={setIsExpanded} />
           </div>
         ) : (
-          <></>
+          <Navbar setSignedIn={setSignedIn} />
         )}
-        <Navbar setSignedIn={setSignedIn} />
       </div>
       <div className="profile-components-container">
         {userComps &&
