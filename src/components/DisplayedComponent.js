@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import "../styles/component.css";
+// import "../styles/component.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 //NEED TO UPDATE TO TAKE component.'path' for each of the s3 paths

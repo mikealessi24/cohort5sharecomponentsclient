@@ -4,7 +4,8 @@ import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import axios from "axios";
 import DisplayComponent from "../components/DisplayComponent";
-import "../styles/home.css";
+// import "../styles/home.css";
+import "../styles/newHome.css";
 // import "../styles/navbar.css";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
@@ -44,25 +45,33 @@ export default function Home({ signedIn, setSignedIn }) {
     })();
   }, []);
   return (
-    <div className="home-container">
-      <div className="home-left">
-        <div className="profile-img">
+    <div className="home-container2">
+      <div className="home-left2">
+        <div className="profile-img2">
           <img width="80px" src={s3Url} alt="avatar" />
+          <h2>{currentUser && currentUser.name}</h2>
         </div>
-        <h2>Name</h2>
-        <div className="profile-navs">
-          <Navbar />
+        <hr style={{ backgroundColor: "red" }} />
+        <div>
+          <Navbar setSignedIn={setSignedIn} />
         </div>
       </div>
 
-      <div className="home-components-container">
+      <div className="home-components-container2">
         {/* {store.getState()} */}
         {allComps &&
-          allComps.map((comp) => <DisplayComponent component={comp} />)}
+          allComps.map((comp) => (
+            <div className="display-component-container2">
+              <DisplayComponent signedIn={signedIn} component={comp} />
+            </div>
+          ))}
       </div>
-      <div className="home-right">
+      <div className="search">
         <SearchBar />
       </div>
+      {/* <div className="home-right">
+          <SearchBar />
+        </div> */}
     </div>
   );
 }

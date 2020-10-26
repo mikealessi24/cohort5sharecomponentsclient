@@ -1,7 +1,7 @@
 import React from "react";
+import "./App.css";
 import PublicRoutes from "./components/PublicRoutes";
 import PrivateRoutes from "./components/PrivateRoutes";
-// import ToggleTheme from "./components/ToggleTheme";
 import { Auth } from "aws-amplify";
 
 function App() {
@@ -18,9 +18,10 @@ function App() {
       }
     })();
   }, []);
+
   console.log("here is signed in state", signedIn);
   return (
-    <div>
+    <div className="App">
       {/* <PublicRoutes /> */}
       {signedIn ? (
         <>

@@ -1,11 +1,11 @@
 import React from "react";
 import { Link, navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
-// import "../styles/navbar.css";
+import "../styles/navbar.css";
 
 export default function Navbar({ setSignedIn }) {
   return (
-    <div className="profile-navs">
+    <div className="nav">
       <Link to="/home">
         <button>Home</button>
       </Link>
@@ -13,6 +13,7 @@ export default function Navbar({ setSignedIn }) {
         <button>Profile</button>
       </Link>
       <button
+        className="custom"
         onClick={() => {
           (async function () {
             try {

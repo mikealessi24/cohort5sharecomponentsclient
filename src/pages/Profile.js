@@ -11,6 +11,8 @@ import ModalUpdate from "../components/ModalUpdate";
 import Navbar from "../components/Navbar";
 import AddTag from "../components/AddTag";
 
+import Paper from "@material-ui/core/Paper";
+
 export default function Profile({ signedIn, setSignedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
@@ -64,8 +66,9 @@ export default function Profile({ signedIn, setSignedIn }) {
   return (
     <div className="profile-container">
       <div className="profile-left">
-        <Navbar setSignedIn={setSignedIn} />
-        <img width="80px" src={s3Url} alt="avatar" />
+        <div className="profile-img">
+          <img width="80px" src={s3Url} alt="avatar" />
+        </div>
         <h2>Name: {currentUser && currentUser.name}</h2>
         <h3>About: {currentUser && currentUser.about}</h3>
         <h3>Github: {currentUser && currentUser.githubLink}</h3>
@@ -76,14 +79,14 @@ export default function Profile({ signedIn, setSignedIn }) {
             <ProfileEdit signedIn={signedIn} setIsExpanded={setIsExpanded} />
           </div>
         ) : (
-          <></>
+          <Navbar setSignedIn={setSignedIn} />
         )}
       </div>
       <div className="profile-components-container">
         {userComps &&
           userComps.map((comp) => (
-            <div>
-              <DisplayComponent component={comp} />
+            <div className="display-component-container">
+              <DisplayComponent component={comp} signedIn={signedIn} />
               <button onClick={() => deleteComp(comp.componentId)}>
                 delete
               </button>

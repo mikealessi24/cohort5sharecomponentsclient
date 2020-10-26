@@ -25,13 +25,76 @@
 
 /* .creator-link {
   color: blue;
+  margin: 10px;
+  padding: 10px;
+}
+
+.screenshot-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.creator-link {
+  color: white;
   text-decoration: underline;
 } */
 
 /* .creator-link:hover {
   color: aqua;
+
+.creator-link:hover {
+  color: hsl(275, 80%, 45%);
   cursor: pointer;
 } */
 
 /* .component-buttons {
 }  */
+/* .component-buttons {
+}
+.component-buttons button {
+} */
+
+/* .component-main-expanded 
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 90%;
+  height: 40%;
+  height: 200px;
+  border: 1px solid black;
+  margin: 10px; */
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+}
+
+input.inputfile + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+}
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: red;
+}
+
+/* input.jsinput + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  background-color: black;
+  display: inline-block;
+}
+.jsinput:focus + label,
+.jsinput + label:hover {
+  background-color: red;
+} */
+/* figure out styles for buttons on modal */

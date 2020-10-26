@@ -24,6 +24,17 @@ body.dark-theme img {
   width: 100%; */
 }
 
+/* .home-components-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 100%;
+  border: 1px solid black;
+  overflow: scroll;
+} */
+
 .home-left {
   grid-column: 1 / 3;
 }
