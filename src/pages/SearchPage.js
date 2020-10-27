@@ -1,9 +1,9 @@
-import React from "react";
-import axios from "axios";
-import Navbar from "../components/Navbar";
-import SearchBar from "../components/SearchBar";
-import "../styles/searchPage.css";
-import DisplayComponent from "../components/DisplayComponent";
+import React from 'react';
+import axios from 'axios';
+import Navbar from '../components/Navbar';
+import SearchBar from '../components/SearchBar';
+import '../styles/searchPage.css';
+import DisplayComponent from '../components/DisplayComponent';
 
 export default function SearchPage({ search, signedIn, setSignedIn }) {
   const [searchComps, setSearchComps] = React.useState([]);
@@ -14,17 +14,17 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/user", {
+        const response = await axios.post('http://localhost:4000/user', {
           token,
         });
         setCurrentUser(response.data);
-        console.log("this is the response", response);
-        console.log("current user log", currentUser);
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
+        console.log('this is the response', response);
+        console.log('current user log', currentUser);
+        const avatar = await axios.post('http://localhost:4000/get-s3-pic', {
           token,
         });
         setS3Url(avatar.data);
-        const results = await axios.post("http://localhost:4000/search", {
+        const results = await axios.post('http://localhost:4000/search', {
           token,
           search,
         });
@@ -33,8 +33,8 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
         console.log(error);
       }
     })();
-  }, []);
-  console.log("search comps", searchComps);
+  }, [search]);
+  console.log('search comps', searchComps);
 
   return (
     <div className="search-main">
@@ -43,7 +43,7 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
           <img width="80px" src={s3Url} alt="avatar" />
           <h2>{currentUser && currentUser.name}</h2>
         </div>
-        <hr style={{ backgroundColor: "red" }} />
+        <hr style={{ backgroundColor: 'red' }} />
         <div>
           <Navbar setSignedIn={setSignedIn} />
         </div>
