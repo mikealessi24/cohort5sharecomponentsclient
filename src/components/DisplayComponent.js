@@ -3,6 +3,9 @@ import axios from "axios";
 import "../styles/component.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { navigate } from "@reach/router";
+import CodeIcon from "@material-ui/icons/Code";
+import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
+import AddShoppingCartOutlinedIcon from "@material-ui/icons/AddShoppingCartOutlined";
 
 export default function DisplayedComponent({ component, signedIn }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
@@ -97,16 +100,23 @@ export default function DisplayedComponent({ component, signedIn }) {
       </div>
 
       <div className="component-buttons">
-        <button onClick={() => getSource()}>Source Code</button>
-        <button onClick={() => getReadMe()}>Read Me</button>
+        <CodeIcon className="view-source-code" onClick={() => getSource()}>
+          Copy Source
+        </CodeIcon>
+        {"  "}
+        <BookOutlinedIcon className="view-read-me" onClick={() => getReadMe()}>
+          Read Me
+        </BookOutlinedIcon>
+        {"  "}
         {jsFile && (
           <CopyToClipboard text={jsFile}>
-            <button
+            <AddShoppingCartOutlinedIcon
+              className="file-copy"
               onClick={() => window.alert("Code was copied!")}
               disabled={!isExpanded}
             >
               Copy Source
-            </button>
+            </AddShoppingCartOutlinedIcon>
           </CopyToClipboard>
         )}
       </div>
