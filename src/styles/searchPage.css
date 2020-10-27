@@ -1,0 +1,20 @@
+.search-main {
+  display: flex;
+  height: 100vh;
+}
+
+.search-left {
+  width: 20%;
+  height: 100%;
+}
+
+.search-middle {
+  width: 60%;
+  overflow: scroll;
+}
+
+.search-right {
+  width: 20%;
+  height: 100%;
+  border: 1px solid red;
+}

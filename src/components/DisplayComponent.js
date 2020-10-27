@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import "../styles/component.css";
+import "../styles/component.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { navigate } from "@reach/router";
 
@@ -85,7 +85,7 @@ export default function DisplayedComponent({ component, signedIn }) {
     // <div className="component-main">
 
     <div className="component-main">
-      <div>{component.title}</div>
+      <h3>{component.title}</h3>
       <div
         className="creator-link"
         onClick={() => navigate(`/viewuser/${component.creator}`)}
@@ -99,23 +99,28 @@ export default function DisplayedComponent({ component, signedIn }) {
       <div className="component-buttons">
         <button onClick={() => getSource()}>Source Code</button>
         <button onClick={() => getReadMe()}>Read Me</button>
-        <CopyToClipboard text={jsFile}>
-          <button
-            onClick={() => window.alert("Code was copied!")}
-            disabled={!isExpanded}
-          >
-            Copy Source
-          </button>
-        </CopyToClipboard>
+        {jsFile && (
+          <CopyToClipboard text={jsFile}>
+            <button
+              onClick={() => window.alert("Code was copied!")}
+              disabled={!isExpanded}
+            >
+              Copy Source
+            </button>
+          </CopyToClipboard>
+        )}
       </div>
       <div>
         {tags.map((tag) => (
-          <div onClick={() => navigate(`/tag/${tag.attribute}`)}>
+          <div
+            className="specific-tag"
+            onClick={() => navigate(`/tag/${tag.attribute}`)}
+          >
             {"#" + tag.attribute}
           </div>
         ))}
       </div>
-      <pre className="code-container">{jsFile ? jsFile : <></>}</pre>
+      <pre style={{ textAlign: "left" }}>{jsFile ? jsFile : <></>}</pre>
       <pre className="readme-container">{textFile ? textFile : <></>}</pre>
     </div>
   );

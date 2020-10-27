@@ -42,11 +42,35 @@
 
 /* .creator-link:hover {
   color: aqua;
+} */
+
+.component-main {
+  text-align: center;
+}
+
+.specific-tag:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+}
+.creator-link {
+  font-size: 20px;
+  margin: 5px;
+}
 
 .creator-link:hover {
   color: hsl(275, 80%, 45%);
   cursor: pointer;
-} */
+}
+
+.jsUpload:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+}
+
+.screenshotUpload:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+}
 
 /* .component-buttons {
 }  */

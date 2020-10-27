@@ -75,7 +75,9 @@ export default function S3ComponentUpload({ signedIn }) {
           Title:
           <input type="text" id="title" />
         </label>
-        <label for="mainFile">Upload JS File</label>
+        <label className="jsUpload" for="mainFile">
+          Upload JS File
+        </label>
         <input
           type="file"
           accept="text/javascript"
@@ -87,7 +89,9 @@ export default function S3ComponentUpload({ signedIn }) {
 
         {/* <button onClick={onClick}>Upload JS</button> */}
         {/* <pre>{s3data}</pre> */}
-        <label for="screenshot">Upload Screenshot</label>
+        <label className="screenshotUpload" for="screenshot">
+          Upload Screenshot
+        </label>
         <input
           type="file"
           accept="image/*"
