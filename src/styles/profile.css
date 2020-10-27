@@ -11,6 +11,20 @@
   grid-column: 1/2;
 }
 
+.profile-edit-button {
+  color: white;
+  padding: 0.25em;
+  border-radius: 0.6em;
+  text-shadow: 1px 1px 1px black;
+}
+
+.profile-edit-button:hover {
+  color: hsl(32, 98%, 49%);
+  box-shadow: 1px 1px 3px rgb(255, 255, 255);
+  text-shadow: 2px 2px 2px black;
+  cursor: pointer;
+}
+
 .profile-components-container {
   /* border: 2px solid black; */
   grid-column: 2/7;
@@ -55,6 +69,26 @@
   border-radius: 10px;
   background-color: #333333;
   color: white;
+}
+
+.display-component-edit-delete-btn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* .profile-delete-button {
+  background: hsl(0, 97%, 49%);
+  border-color: 1px solid white;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 0.6em;
+  text-shadow: 1px 1px 1px black;
+}*/
+
+.profile-delete-button:hover {
+  color: hsl(10, 98%, 49%);
+  cursor: pointer;
 }
 
 .profile-left hr {

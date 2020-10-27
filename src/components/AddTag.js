@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
+import "../styles/component.css";
 
 export default function AddTag({ signedIn, component }) {
   const [tag, setTag] = React.useState(undefined);
@@ -21,12 +23,19 @@ export default function AddTag({ signedIn, component }) {
   }
 
   return (
-    <div>
+    <div className="tag-comp-section">
       <input
+        className="tag-input"
         onChange={(e) => setTag(e.target.value)}
         placeholder="#Add A Tag"
       ></input>
-      <button onClick={() => tagAComponent()}>Add Tag</button>
+      <div className="tag-icon-container">
+        <LocalOfferOutlinedIcon
+          className="add-tag-btn"
+          onClick={() => tagAComponent()}
+        ></LocalOfferOutlinedIcon>
+        <span className="tag-text-display">Add Tag</span>
+      </div>
     </div>
   );
 }

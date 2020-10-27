@@ -5,6 +5,8 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import S3ComponentUpdater from "./S3ComponentUpdater";
 import axios from "axios";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import "../styles/component.css";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -34,9 +36,13 @@ export default function ModalUpdate({ signedIn, component }) {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <EditOutlinedIcon
+        className="component-update-btn"
+        type="button"
+        onClick={handleOpen}
+      >
         update
-      </button>
+      </EditOutlinedIcon>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
