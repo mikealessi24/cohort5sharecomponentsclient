@@ -72,8 +72,93 @@
   cursor: pointer;
 }
 
-/* .component-buttons {
-}  */
+.view-source-code:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.view-read-me:hover {
+  color: hsl(275, 80%, 45%);
+  /* content: "Read Me"; */
+  cursor: pointer;
+}
+
+.file-copy:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+  display: inline-block;
+}
+
+.component-update-btn {
+  color: white;
+  padding: 0.25em;
+  border-radius: 0.6em;
+  text-shadow: 1px 1px 1px black;
+}
+
+.component-update-btn:hover {
+  color: hsl(30, 97%, 49%);
+  cursor: pointer;
+}
+
+.tag-comp-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag-input {
+  padding: 7px;
+  font-size: 0.75rem;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  color: hsl(270, 1%, 47%);
+}
+
+.tag-text-display {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: relative;
+  z-index: 1;
+  bottom: 150%;
+  /* left: 50%; */
+  /* margin-left: -60px; */
+}
+
+.tag-icon-container:hover .tag-text-display {
+  visibility: visible;
+  cursor: pointer;
+  content: "";
+  position: relative;
+  top: 100%;
+  /* left: 50%; */
+  /* margin-left: -5px; */
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.add-tag-btn {
+  align-items: center;
+}
+
+.add-tag-btn:hover {
+  color: hsl(275, 80%, 45%);
+  cursor: pointer;
+}
+
+.add-tag-btn .tag-text-display::after {
+  color: hsl(275, 80%, 45%);
+  visibility: visible;
+}
+
 /* .component-buttons {
 }
 .component-buttons button {

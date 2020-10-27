@@ -12,6 +12,8 @@ import Navbar from "../components/Navbar";
 import AddTag from "../components/AddTag";
 import SnackBarAlert from "../components/SnackBarAlert";
 
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Paper from "@material-ui/core/Paper";
 
 export default function Profile({ signedIn, setSignedIn }) {
@@ -76,7 +78,12 @@ export default function Profile({ signedIn, setSignedIn }) {
         <h3>About: {currentUser && currentUser.about}</h3>
         <h3>Github: {currentUser && currentUser.githubLink}</h3>
         <hr style={{ backgroundColor: "red" }} />
-        <button onClick={() => setIsExpanded(true)}>Edit</button>
+        <EditOutlinedIcon
+          className="profile-edit-button"
+          onClick={() => setIsExpanded(true)}
+        >
+          Edit
+        </EditOutlinedIcon>
         {isExpanded ? (
           <div className="profile-edit-container">
             <ProfileEdit signedIn={signedIn} setIsExpanded={setIsExpanded} />
@@ -90,14 +97,20 @@ export default function Profile({ signedIn, setSignedIn }) {
           userComps.map((comp) => (
             <div className="display-component-container">
               <DisplayComponent component={comp} signedIn={signedIn} />
-              <button onClick={() => deleteComp(comp.componentId)}>
-                delete
-              </button>
-              <ModalUpdate
-                component={comp}
-                signedIn={signedIn}
-                setStatus={setStatus}
-              />
+
+              <div className="display-component-edit-delete-btn">
+                <DeleteOutlineOutlinedIcon
+                  className="profile-delete-button"
+                  onClick={() => deleteComp(comp.componentId)}
+                >
+                  delete
+                </DeleteOutlineOutlinedIcon>
+                <ModalUpdate
+                  component={comp}
+                  signedIn={signedIn}
+                  setStatus={setStatus}
+                />
+              </div>
               <AddTag component={comp} signedIn={signedIn} />
             </div>
           ))}
