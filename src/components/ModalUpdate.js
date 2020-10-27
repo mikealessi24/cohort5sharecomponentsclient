@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalUpdate({ signedIn, component }) {
+export default function ModalUpdate({ signedIn, component, setStatus }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -58,7 +58,12 @@ export default function ModalUpdate({ signedIn, component }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Update a component!</h2>
-            <S3ComponentUpdater signedIn={signedIn} component={component} />
+            <S3ComponentUpdater
+              setOpen={setOpen}
+              signedIn={signedIn}
+              component={component}
+              setStatus={setStatus}
+            />
           </div>
         </Fade>
       </Modal>

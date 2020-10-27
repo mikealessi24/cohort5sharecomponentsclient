@@ -10,6 +10,8 @@ import DisplayComponent from "../components/DisplayComponent";
 import ModalUpdate from "../components/ModalUpdate";
 import Navbar from "../components/Navbar";
 import AddTag from "../components/AddTag";
+import SnackBarAlert from "../components/SnackBarAlert";
+
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Paper from "@material-ui/core/Paper";
@@ -19,6 +21,7 @@ export default function Profile({ signedIn, setSignedIn }) {
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const [status, setStatus] = React.useState(undefined);
 
   React.useEffect(() => {
     (async function () {
@@ -94,6 +97,7 @@ export default function Profile({ signedIn, setSignedIn }) {
           userComps.map((comp) => (
             <div className="display-component-container">
               <DisplayComponent component={comp} signedIn={signedIn} />
+
               <div className="display-component-edit-delete-btn">
                 <DeleteOutlineOutlinedIcon
                   className="profile-delete-button"
@@ -101,7 +105,11 @@ export default function Profile({ signedIn, setSignedIn }) {
                 >
                   delete
                 </DeleteOutlineOutlinedIcon>
-                <ModalUpdate component={comp} signedIn={signedIn} />
+                <ModalUpdate
+                  component={comp}
+                  signedIn={signedIn}
+                  setStatus={setStatus}
+                />
               </div>
               <AddTag component={comp} signedIn={signedIn} />
             </div>
@@ -109,8 +117,9 @@ export default function Profile({ signedIn, setSignedIn }) {
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
       </div>
       <div className="profile-right">
-        <ModalUpload signedIn={signedIn} />
+        <ModalUpload signedIn={signedIn} setStatus={setStatus} />
       </div>
+      {status ? <SnackBarAlert status={status} setStatus={setStatus} /> : null}
     </div>
   );
 }

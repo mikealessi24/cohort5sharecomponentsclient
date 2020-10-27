@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ModalUpload({ signedIn }) {
+export default function ModalUpload({ signedIn, setStatus }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -56,7 +56,11 @@ export default function ModalUpload({ signedIn }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Add new component</h2>
-            <S3ComponentUpload signedIn={signedIn} />
+            <S3ComponentUpload
+              signedIn={signedIn}
+              setStatus={setStatus}
+              setOpen={setOpen}
+            />
           </div>
         </Fade>
       </Modal>

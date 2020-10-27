@@ -3,8 +3,9 @@ import uuid from "uuid/dist/v4";
 import { Storage } from "aws-amplify";
 import axios from "axios";
 import "../styles/component.css";
+import SnackBarAlert from "../components/SnackBarAlert";
 
-export default function S3ComponentUpload({ signedIn }) {
+export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
   async function uploadComponent(e) {
     try {
       e.preventDefault();
@@ -50,10 +51,13 @@ export default function S3ComponentUpload({ signedIn }) {
           }
         );
         console.log(resp);
-        window.alert("Successful upload! WOHOOO!!");
+        setStatus({ message: "Successfully Uploaded!", type: "success" });
+        setOpen(false);
       } else {
-        window.alert("WOOOOPS!! You are missing a required field!!!");
-        //one of the fields was undefined
+        setStatus({
+          message: "Error Upoloading, make sure all fields are defined",
+          type: "error",
+        });
       }
 
       //get all form data
