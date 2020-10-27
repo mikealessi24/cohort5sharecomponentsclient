@@ -146,6 +146,7 @@ export default function SignUp({ setUsername, setPassword }) {
             color="primary"
             className={classes.submit}
           >
+            {/* This is Bo's Test Branch */}
             Sign Up
           </Button>
           <Grid container justify="flex-end">
