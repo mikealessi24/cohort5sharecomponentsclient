@@ -16,7 +16,10 @@ import { Link as ReachRouterLink } from "@reach/router";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import { useDispatch } from "react-redux";
-import SignInPic from "../assets/Screen Shot 2020-10-27 at 9.39.02 AM.png"
+import SignInPic from "../assets/Screen Shot 2020-10-27 at 9.39.02 AM.png";
+
+import SnackBarAlert from "../components/SnackBarAlert";
+import { Snackbar } from "@material-ui/core";
 
 function Copyright() {
   return (
@@ -36,15 +39,15 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    display: "flex", 
-    alignItems: "center", 
-    backgroundImage:`url(${SignInPic})`,
+    display: "flex",
+    alignItems: "center",
+    backgroundImage: `url(${SignInPic})`,
     backgroundRepeat: "no-repeat",
     // backgroundColor:
     //   theme.palette.type === "light"
     //     ? theme.palette.grey[50]
     //     : theme.palette.grey[900],
-    backgroundColor: "black", 
+    backgroundColor: "black",
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
@@ -68,29 +71,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignInSide({ setSignedIn }) {
+  const [status, setStatus] = React.useState(undefined);
   const classes = useStyles();
   // const dispatch = useDispatch();
-// const [backgroundImage, setBackgroundImage] = React.useState(undefined)
-//   React.useEffect(() => {
-//     function importAll(r) {
-//       let images = {};
-//       r.keys().map((item, index) => {
-//         images[item.replace("./", "")] = r(item);
-//       });
-//       return images;
-//     }
-//     const images = importAll(
-//       require.context("../assets", false, /\.(png|jpe?g|svg)$/)
-//     );
-//     console.log(images)
-//   setBackgroundImage(images["Screen Shot 2020-10-27 at 9.39.02 AM.png"])},[]); 
+  // const [backgroundImage, setBackgroundImage] = React.useState(undefined)
+  //   React.useEffect(() => {
+  //     function importAll(r) {
+  //       let images = {};
+  //       r.keys().map((item, index) => {
+  //         images[item.replace("./", "")] = r(item);
+  //       });
+  //       return images;
+  //     }
+  //     const images = importAll(
+  //       require.context("../assets", false, /\.(png|jpe?g|svg)$/)
+  //     );
+  //     console.log(images)
+  //   setBackgroundImage(images["Screen Shot 2020-10-27 at 9.39.02 AM.png"])},[]);
 
-    // console.log("this is the background image", backgroundImage)
-    return(
+  // console.log("this is the background image", backgroundImage)
+  return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image}><img src={SignInPic} width="100%"></img> </Grid>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square> 
+      <Grid item xs={false} sm={4} md={7} className={classes.image}>
+        <img src={SignInPic} width="100%"></img>{" "}
+      </Grid>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -115,7 +121,8 @@ export default function SignInSide({ setSignedIn }) {
                   setSignedIn(user);
                   navigate("/home");
                 } catch (error) {
-                  console.log("error sigining in", error);
+                  console.log(error);
+                  setStatus({ message: "error sigining in", type: "error" });
                 }
               })();
             }}
@@ -166,6 +173,9 @@ export default function SignInSide({ setSignedIn }) {
             >
               Sign In
             </Button>
+            {status ? (
+              <SnackBarAlert status={status} setStatus={setStatus} />
+            ) : null}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

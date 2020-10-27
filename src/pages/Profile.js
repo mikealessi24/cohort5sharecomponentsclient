@@ -10,6 +10,7 @@ import DisplayComponent from "../components/DisplayComponent";
 import ModalUpdate from "../components/ModalUpdate";
 import Navbar from "../components/Navbar";
 import AddTag from "../components/AddTag";
+import SnackBarAlert from "../components/SnackBarAlert";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -18,6 +19,7 @@ export default function Profile({ signedIn, setSignedIn }) {
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
   const [isExpanded, setIsExpanded] = React.useState(false);
+  const [status, setStatus] = React.useState(undefined);
 
   React.useEffect(() => {
     (async function () {
@@ -91,15 +93,20 @@ export default function Profile({ signedIn, setSignedIn }) {
               <button onClick={() => deleteComp(comp.componentId)}>
                 delete
               </button>
-              <ModalUpdate component={comp} signedIn={signedIn} />
+              <ModalUpdate
+                component={comp}
+                signedIn={signedIn}
+                setStatus={setStatus}
+              />
               <AddTag component={comp} signedIn={signedIn} />
             </div>
           ))}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
       </div>
       <div className="profile-right">
-        <ModalUpload signedIn={signedIn} />
+        <ModalUpload signedIn={signedIn} setStatus={setStatus} />
       </div>
+      {status ? <SnackBarAlert status={status} setStatus={setStatus} /> : null}
     </div>
   );
 }

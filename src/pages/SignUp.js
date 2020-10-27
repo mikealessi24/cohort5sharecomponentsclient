@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link as ReachRouterLink, navigate } from "@reach/router";
 import { Auth } from "aws-amplify";
+import SnackBarAlert from "../components/SnackBarAlert";
 
 function Copyright() {
   return (
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp({ setUsername, setPassword }) {
+  const [status, setStatus] = React.useState(undefined);
   const classes = useStyles();
 
   return (
@@ -93,11 +95,13 @@ export default function SignUp({ setUsername, setPassword }) {
                   setPassword(password);
                   navigate("/confirm");
                 } catch (error) {
-                  console.log("error signing up:", error);
+                  console.log(error);
+                  setStatus({ message: "Error Sigining Up", type: "error" });
                 }
               })();
             }}
           >
+            <SnackBarAlert status={status} setStatus={setStatus} />
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

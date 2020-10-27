@@ -3,7 +3,12 @@ import uuid from "uuid/dist/v4";
 import { Storage } from "aws-amplify";
 import axios from "axios";
 
-export default function S3ComponentUpdater({ signedIn, component }) {
+export default function S3ComponentUpdater({
+  signedIn,
+  component,
+  setStatus,
+  setOpen,
+}) {
   async function updateComp(e) {
     try {
       e.preventDefault();
@@ -69,7 +74,11 @@ export default function S3ComponentUpdater({ signedIn, component }) {
         screenshotUrl,
       });
       console.log(resp);
-      window.alert("Successful upload! WOHOOO!!");
+      setStatus({
+        message: "Successfully Updated Component!",
+        type: "success",
+      });
+      setOpen(false);
     } catch (error) {
       console.log(error);
     }

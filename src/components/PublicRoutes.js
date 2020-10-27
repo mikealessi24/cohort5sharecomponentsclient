@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 export default function PublicRoutes({ setSignedIn }) {
   const [username, setUsername] = React.useState(undefined);
   const [password, setPassword] = React.useState(undefined);
+  // const [openSnack, setOpenSnack] = React.useState(false);
   return (
     <Router>
       <SignIn setSignedIn={setSignedIn} path="/signin" />
