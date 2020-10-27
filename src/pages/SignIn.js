@@ -16,6 +16,7 @@ import { Link as ReachRouterLink } from "@reach/router";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import { useDispatch } from "react-redux";
+import SignInPic from "../assets/Screen Shot 2020-10-27 at 9.39.02 AM.png"
 
 function Copyright() {
   return (
@@ -35,12 +36,15 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    display: "flex", 
+    alignItems: "center", 
+    backgroundImage:`url(${SignInPic})`,
     backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
+    // backgroundColor:
+    //   theme.palette.type === "light"
+    //     ? theme.palette.grey[50]
+    //     : theme.palette.grey[900],
+    backgroundColor: "black", 
     backgroundSize: "cover",
     backgroundPosition: "center",
   },
@@ -66,12 +70,27 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide({ setSignedIn }) {
   const classes = useStyles();
   // const dispatch = useDispatch();
+// const [backgroundImage, setBackgroundImage] = React.useState(undefined)
+//   React.useEffect(() => {
+//     function importAll(r) {
+//       let images = {};
+//       r.keys().map((item, index) => {
+//         images[item.replace("./", "")] = r(item);
+//       });
+//       return images;
+//     }
+//     const images = importAll(
+//       require.context("../assets", false, /\.(png|jpe?g|svg)$/)
+//     );
+//     console.log(images)
+//   setBackgroundImage(images["Screen Shot 2020-10-27 at 9.39.02 AM.png"])},[]); 
 
-  return (
+    // console.log("this is the background image", backgroundImage)
+    return(
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid item xs={false} sm={4} md={7} className={classes.image}><img src={SignInPic} width="100%"></img> </Grid>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square> 
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />

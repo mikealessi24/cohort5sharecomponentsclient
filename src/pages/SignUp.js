@@ -30,6 +30,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    backgroundColor: 'white', 
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
@@ -52,6 +53,10 @@ export default function SignUp({ setUsername, setPassword }) {
   const classes = useStyles();
 
   return (
+    <div style={{
+      backgroundColor: "white", 
+      color: "black"
+    }}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -156,5 +161,6 @@ export default function SignUp({ setUsername, setPassword }) {
         <Copyright />
       </Box>
     </Container>
+    </div> 
   );
 }
