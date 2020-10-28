@@ -1,16 +1,3 @@
-.profile-container {
-  /* border: 2px solid red; */
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-}
-
-.profile-left {
-  /* border: 2px solid chartreuse; */
-  grid-column: 1/2;
-}
-
 .profile-edit-button {
   color: white;
   padding: 0.25em;
@@ -25,66 +12,12 @@
   cursor: pointer;
 }
 
-.profile-components-container {
-  /* border: 2px solid black; */
-  grid-column: 2/7;
-  /* border: 5px solid blue; */
-  overflow: scroll;
-}
-
-.profile-img {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-items: center;
-  /* border: 3px solid rebeccapurple; */
-  height: 250px;
-}
-
-.profile-img img {
-  height: 150px;
-  width: 150px;
-  border-radius: 500px;
-}
-
-.profile-right {
-  grid-column: 7/8;
-  /* border: 1px solid green; */
-  height: 100px;
-  padding: 20px;
-  border: 1px solid salmon;
-}
-
-.display-component-container {
-  border: 1px solid rgb(120, 24, 245);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* box-shadow: 4px 4px 4px hsl(0, 0%, 33%); */
-  text-shadow: 3px 3px 3px black;
-  justify-content: center;
-  padding: 30px;
-  margin: 10px;
-  border-radius: 10px;
-  background-color: #333333;
-  color: white;
-}
-
 .display-component-edit-delete-btn {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  width: 100%;
 }
-
-/* .profile-delete-button {
-  background: hsl(0, 97%, 49%);
-  border-color: 1px solid white;
-  color: white;
-  padding: 0.5em 1em;
-  border-radius: 0.6em;
-  text-shadow: 1px 1px 1px black;
-}*/
 
 .profile-delete-button:hover {
   color: hsl(10, 98%, 49%);
@@ -96,4 +29,13 @@
   text-align: left;
   margin-left: 0;
   border-color: rgb(120, 24, 245);
+}
+
+.about-user {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }

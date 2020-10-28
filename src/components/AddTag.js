@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
+import Tooltip from "@material-ui/core/Tooltip";
 import "../styles/component.css";
 
 export default function AddTag({ signedIn, component }) {
@@ -30,11 +31,12 @@ export default function AddTag({ signedIn, component }) {
         placeholder="#Add A Tag"
       ></input>
       <div className="tag-icon-container">
-        <LocalOfferOutlinedIcon
-          className="add-tag-btn"
-          onClick={() => tagAComponent()}
-        ></LocalOfferOutlinedIcon>
-        <span className="tag-text-display">Add Tag</span>
+        <Tooltip title="Add Tag" placement="top">
+          <LocalOfferOutlinedIcon
+            className="add-tag-btn"
+            onClick={() => tagAComponent()}
+          ></LocalOfferOutlinedIcon>
+        </Tooltip>
       </div>
     </div>
   );

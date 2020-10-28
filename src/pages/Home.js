@@ -4,9 +4,7 @@ import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import axios from "axios";
 import DisplayComponent from "../components/DisplayComponent";
-// import "../styles/home.css";
-import "../styles/newHome.css";
-// import "../styles/navbar.css";
+import "../styles/layout.css";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 // import ToggleTheme from "../components/ToggleTheme";
@@ -45,9 +43,9 @@ export default function Home({ signedIn, setSignedIn }) {
     })();
   }, []);
   return (
-    <div className="home-container2">
-      <div className="home-left2">
-        <div className="profile-img2">
+    <div className="main">
+      <div className="left">
+        <div className="profile-img">
           <img width="80px" src={s3Url} alt="avatar" />
           <h2>{currentUser && currentUser.name}</h2>
         </div>
@@ -57,16 +55,16 @@ export default function Home({ signedIn, setSignedIn }) {
         </div>
       </div>
 
-      <div className="home-components-container2">
+      <div className="middle">
         {/* {store.getState()} */}
         {allComps &&
           allComps.map((comp) => (
-            <div className="display-component-container2">
+            <div className="display-component-container">
               <DisplayComponent signedIn={signedIn} component={comp} />
             </div>
           ))}
       </div>
-      <div className="search">
+      <div className="right">
         <SearchBar />
       </div>
       {/* <div className="home-right">
