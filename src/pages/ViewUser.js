@@ -3,7 +3,7 @@ import S3ImageUpload from "../components/S3ImageUpload";
 import axios from "axios";
 import S3ComponentUpload from "../components/S3ComponentUpload";
 import DisplayedComponent from "../components/DisplayedComponent";
-import "../styles/viewUser.css";
+import "../styles/layout.css";
 import ModalUpload from "../components/ModalUpload";
 import ProfileEdit from "../components/ProfileEdit";
 import DisplayComponent from "../components/DisplayComponent";
@@ -90,9 +90,9 @@ export default function ViewUser({ creator, signedIn }) {
   }
 
   return (
-    <div className="user-container">
-      <div className="user-left">
-        <div className="user-img">
+    <div className="main">
+      <div className="left">
+        <div className="profile-img">
           <img width="80px" src={s3Url} alt="avatar" />
         </div>
         <h2>Name: {currentUser && currentUser.name}</h2>
@@ -123,15 +123,16 @@ export default function ViewUser({ creator, signedIn }) {
         <Navbar />
       </div>
 
-      <div className="user-components-container">
+      <div className="middle">
         {userComps &&
           userComps.map((comp) => (
-            <div className="user-component">
+            <div className="display-component-container">
               <DisplayComponent component={comp} signedIn={signedIn} />
             </div>
           ))}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
       </div>
+      <div className="right"></div>
     </div>
   );
 }

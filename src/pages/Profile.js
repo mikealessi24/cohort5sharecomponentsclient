@@ -4,6 +4,7 @@ import axios from "axios";
 import S3ComponentUpload from "../components/S3ComponentUpload";
 import DisplayedComponent from "../components/DisplayedComponent";
 import "../styles/profile.css";
+import "../styles/layout.css";
 import ModalUpload from "../components/ModalUpload";
 import ProfileEdit from "../components/ProfileEdit";
 import DisplayComponent from "../components/DisplayComponent";
@@ -15,6 +16,8 @@ import SnackBarAlert from "../components/SnackBarAlert";
 import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import Paper from "@material-ui/core/Paper";
+import Tooltip from "@material-ui/core/Tooltip";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 export default function Profile({ signedIn, setSignedIn }) {
   const [s3Url, setS3Url] = React.useState(undefined);
@@ -38,7 +41,6 @@ export default function Profile({ signedIn, setSignedIn }) {
         });
         console.log("the avatar:", avatar);
         setS3Url(avatar.data);
-        console.log("avatar url", s3Url);
 
         getUserComps(token);
       } catch (error) {
@@ -47,6 +49,7 @@ export default function Profile({ signedIn, setSignedIn }) {
     })();
   }, []);
   console.log(userComps);
+  console.log("avatar url", s3Url);
 
   async function getUserComps(token) {
     const comps = await axios.post("http://localhost:4000/get-user-comps", {
@@ -56,34 +59,49 @@ export default function Profile({ signedIn, setSignedIn }) {
   }
 
   async function deleteComp(id) {
-    try {
-      await axios.post("http://localhost:4000/delete-component", {
-        token: signedIn.signInUserSession.idToken.jwtToken,
-        componentId: id,
-      });
-      getUserComps(signedIn.signInUserSession.idToken.jwtToken);
-    } catch (error) {
-      console.log(error);
+    const foo = window.confirm("Are you sure you want to delete this?");
+    if (foo) {
+      try {
+        await axios.post("http://localhost:4000/delete-component", {
+          token: signedIn.signInUserSession.idToken.jwtToken,
+          componentId: id,
+        });
+        getUserComps(signedIn.signInUserSession.idToken.jwtToken);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 
   return (
-    <div className="profile-container">
-      <div className="profile-left">
+    <div className="main">
+      <div className="left">
         <div className="profile-img">
           <img width="80px" src={s3Url} alt="avatar" />
         </div>
         <hr style={{ backgroundColor: "red" }} />
-        <h2>Name: {currentUser && currentUser.name}</h2>
-        <h3>About: {currentUser && currentUser.about}</h3>
-        <h3>Github: {currentUser && currentUser.githubLink}</h3>
+        <div className="about-user">
+          <h2>{currentUser && currentUser.name}</h2>
+          <p>{currentUser && currentUser.about}</p>
+          <Tooltip
+            title={currentUser && currentUser.githubLink}
+            placement="right"
+          >
+            <GitHubIcon
+              style={{ fontSize: "50px" }}
+              onClick={() => (window.location.href = currentUser.githubLink)}
+            ></GitHubIcon>
+          </Tooltip>
+        </div>
+
         <hr style={{ backgroundColor: "red" }} />
-        <EditOutlinedIcon
-          className="profile-edit-button"
-          onClick={() => setIsExpanded(true)}
-        >
-          Edit
-        </EditOutlinedIcon>
+        <Tooltip title="Edit Profile" placement="right">
+          <EditOutlinedIcon
+            style={{ fontSize: "70px" }}
+            className="profile-edit-button"
+            onClick={() => setIsExpanded(!isExpanded)}
+          ></EditOutlinedIcon>
+        </Tooltip>
         {isExpanded ? (
           <div className="profile-edit-container">
             <ProfileEdit signedIn={signedIn} setIsExpanded={setIsExpanded} />
@@ -92,31 +110,31 @@ export default function Profile({ signedIn, setSignedIn }) {
           <Navbar setSignedIn={setSignedIn} />
         )}
       </div>
-      <div className="profile-components-container">
+      <div className="middle">
         {userComps &&
           userComps.map((comp) => (
             <div className="display-component-container">
               <DisplayComponent component={comp} signedIn={signedIn} />
-
+              <AddTag component={comp} signedIn={signedIn} />
               <div className="display-component-edit-delete-btn">
-                <DeleteOutlineOutlinedIcon
-                  className="profile-delete-button"
-                  onClick={() => deleteComp(comp.componentId)}
-                >
-                  delete
-                </DeleteOutlineOutlinedIcon>
+                <Tooltip title="Delete" placement="left">
+                  <DeleteOutlineOutlinedIcon
+                    style={{ fontSize: "40px" }}
+                    className="profile-delete-button"
+                    onClick={() => deleteComp(comp.componentId)}
+                  ></DeleteOutlineOutlinedIcon>
+                </Tooltip>
                 <ModalUpdate
                   component={comp}
                   signedIn={signedIn}
                   setStatus={setStatus}
                 />
               </div>
-              <AddTag component={comp} signedIn={signedIn} />
             </div>
           ))}
         {/* {userComps && <DisplayComponent component={userComps[2]} />} */}
       </div>
-      <div className="profile-right">
+      <div className="right">
         <ModalUpload signedIn={signedIn} setStatus={setStatus} />
       </div>
       {status ? <SnackBarAlert status={status} setStatus={setStatus} /> : null}

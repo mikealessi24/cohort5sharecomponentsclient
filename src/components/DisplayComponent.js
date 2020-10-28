@@ -7,8 +7,9 @@ import SnackBarAlert from "../components/SnackBarAlert";
 import CodeIcon from "@material-ui/icons/Code";
 import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
 import AddShoppingCartOutlinedIcon from "@material-ui/icons/AddShoppingCartOutlined";
+import Tooltip from "@material-ui/core/Tooltip";
 
-export default function DisplayedComponent({ component, signedIn }) {
+export default function DisplayComponent({ component, signedIn }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
   const [jsFile, setJsFile] = React.useState(undefined);
   const [textFile, setTextFile] = React.useState(undefined);
@@ -103,32 +104,42 @@ export default function DisplayedComponent({ component, signedIn }) {
       </div>
 
       <div className="component-buttons">
-        <CodeIcon className="view-source-code" onClick={() => getSource()}>
-          Copy Source
-        </CodeIcon>
+        <Tooltip title="Show Source" placement="top">
+          <CodeIcon
+            style={{ fontSize: "40px" }}
+            className="view-source-code"
+            onClick={() => getSource()}
+          ></CodeIcon>
+        </Tooltip>
         {"  "}
-        <BookOutlinedIcon className="view-read-me" onClick={() => getReadMe()}>
-          Read Me
-        </BookOutlinedIcon>
+        <Tooltip title="Read Me" placement="top">
+          <BookOutlinedIcon
+            style={{ fontSize: "40px" }}
+            className="view-read-me"
+            onClick={() => getReadMe()}
+          ></BookOutlinedIcon>
+        </Tooltip>
         {"  "}
         {jsFile && (
           <CopyToClipboard text={jsFile}>
-            <AddShoppingCartOutlinedIcon
-              className="file-copy"
-              onClick={() =>
-                setStatus({
-                  message: "Source Copied!",
-                  type: "success",
-                })
-              }
-              disabled={!isExpanded}
-            >
-              Copy Source
-            </AddShoppingCartOutlinedIcon>
+            <Tooltip title="Kopy File" placement="top">
+              <AddShoppingCartOutlinedIcon
+                style={{ fontSize: "40px" }}
+                className="file-copy"
+                onClick={() => window.alert("Code was copied!")}
+                disabled={!isExpanded}
+              ></AddShoppingCartOutlinedIcon>
+            </Tooltip>
           </CopyToClipboard>
         )}
       </div>
-      <div>
+
+      <pre style={{ textAlign: "left" }}>
+        {jsFile ? jsFile : <></>}
+        {/* {jsFile ? rainbow.colorSync(jsFile, "javascript") : <></>} */}
+      </pre>
+      <pre className="readme-container">{textFile ? textFile : <></>}</pre>
+      <div className="tag-container">
         {tags.map((tag) => (
           <div
             className="specific-tag"
@@ -138,8 +149,6 @@ export default function DisplayedComponent({ component, signedIn }) {
           </div>
         ))}
       </div>
-      <pre style={{ textAlign: "left" }}>{jsFile ? jsFile : <></>}</pre>
-      <pre className="readme-container">{textFile ? textFile : <></>}</pre>
     </div>
   );
 }

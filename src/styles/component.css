@@ -1,60 +1,30 @@
-/* .component-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 40%;
-  /* height: 40%; */
-/* height: 200px; */
-/* border: 1px solid black; */
-/* margin: 10px;
-  padding: 10px; */
-/* } */
-
-/* .component-main-expanded {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 90%; */
-/* height: 40%; */
-/* height: 200px; */
-/* border: 1px solid black; */
-/* margin: 10px; */
-/* } */
-
-/* .creator-link {
-  color: blue;
-  margin: 10px;
-  padding: 10px;
-}
-
-.screenshot-cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.creator-link {
-  color: white;
-  text-decoration: underline;
-} */
-
-/* .creator-link:hover {
-  color: aqua;
-} */
-
 .component-main {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.specific-tag {
+  margin-right: 5px;
 }
 
 .specific-tag:hover {
   color: hsl(275, 80%, 45%);
   cursor: pointer;
 }
+
+.tag-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
 .creator-link {
   font-size: 20px;
   margin: 5px;
+  width: 10%;
+  align-self: center;
 }
 
 .creator-link:hover {
@@ -132,17 +102,8 @@
   /* margin-left: -60px; */
 }
 
-.tag-icon-container:hover .tag-text-display {
-  visibility: visible;
-  cursor: pointer;
-  content: "";
-  position: relative;
-  top: 100%;
-  /* left: 50%; */
-  /* margin-left: -5px; */
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
+.tag-icon-container {
+  margin-left: 5px;
 }
 
 .add-tag-btn {
@@ -159,10 +120,9 @@
   visibility: visible;
 }
 
-/* .component-buttons {
+.component-buttons {
+  margin: 10px;
 }
-.component-buttons button {
-} */
 
 /* .component-main-expanded 
   display: flex;

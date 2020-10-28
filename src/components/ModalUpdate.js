@@ -7,6 +7,7 @@ import S3ComponentUpdater from "./S3ComponentUpdater";
 import axios from "axios";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import "../styles/component.css";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -19,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-evenly",
   },
 }));
 
@@ -36,13 +42,14 @@ export default function ModalUpdate({ signedIn, component, setStatus }) {
 
   return (
     <div>
-      <EditOutlinedIcon
-        className="component-update-btn"
-        type="button"
-        onClick={handleOpen}
-      >
-        update
-      </EditOutlinedIcon>
+      <Tooltip title="Update" placement="right">
+        <EditOutlinedIcon
+          style={{ fontSize: "70px" }}
+          className="component-update-btn"
+          type="button"
+          onClick={handleOpen}
+        ></EditOutlinedIcon>
+      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
