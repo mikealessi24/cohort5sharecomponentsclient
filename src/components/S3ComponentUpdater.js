@@ -1,8 +1,8 @@
-import React from "react";
-import uuid from "uuid/dist/v4";
-import { Storage } from "aws-amplify";
-import axios from "axios";
-import "../styles/component.css";
+import React from 'react';
+import uuid from 'uuid/dist/v4';
+import { Storage } from 'aws-amplify';
+import axios from 'axios';
+import '../styles/component.css';
 
 export default function S3ComponentUpdater({
   signedIn,
@@ -34,8 +34,8 @@ export default function S3ComponentUpdater({
           `${signedIn.username}/components/${componentUuid}/${title}.js`,
           mainFile,
           {
-            contentType: "text/javascript",
-          }
+            contentType: 'text/javascript',
+          },
         );
         mainFileUrl = foo.key;
       } else {
@@ -46,8 +46,8 @@ export default function S3ComponentUpdater({
           `${signedIn.username}/components/${componentUuid}/${title}.png`,
           screenshot,
           {
-            contentType: "image/png",
-          }
+            contentType: 'image/png',
+          },
         );
         screenshotUrl = foo.key;
       } else {
@@ -58,26 +58,29 @@ export default function S3ComponentUpdater({
           `${signedIn.username}/components/${componentUuid}/${title}.txt`,
           readMe,
           {
-            contentType: "text/plain",
-          }
+            contentType: 'text/plain',
+          },
         );
         readMeUrl = foo.key;
       } else {
         readMeUrl = component.readMe;
       }
 
-      const resp = await axios.post("http://localhost:4000/update-component", {
-        componentUuid,
-        title,
-        token: signedIn.signInUserSession.idToken.jwtToken,
-        mainFileUrl,
-        readMeUrl,
-        screenshotUrl,
-      });
+      const resp = await axios.post(
+        'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/update-component',
+        {
+          componentUuid,
+          title,
+          token: signedIn.signInUserSession.idToken.jwtToken,
+          mainFileUrl,
+          readMeUrl,
+          screenshotUrl,
+        },
+      );
       console.log(resp);
       setStatus({
-        message: "Successfully Updated Component!",
-        type: "success",
+        message: 'Successfully Updated Component!',
+        type: 'success',
       });
       setOpen(false);
     } catch (error) {
@@ -99,7 +102,7 @@ export default function S3ComponentUpdater({
           accept="text/javascript"
           id="mainFile"
           name="mainFile"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
         />
 
         {/* <button onClick={onClick}>Upload JS</button> */}
@@ -112,7 +115,7 @@ export default function S3ComponentUpdater({
           accept="image/*"
           id="screenshot"
           name="screenshot"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
         />
         {/* <button onClick={onClick}>Upload ScreenShot</button> */}
         <textarea placeholder="Enter ReadMe content" id="readMe"></textarea>

@@ -1,6 +1,8 @@
 .main {
   display: flex;
   height: 100vh;
+  /* width: 100vh; */
+  width: 100%;
 }
 
 .left {
@@ -15,14 +17,24 @@
   border-color: rgb(120, 24, 245);
 }
 
+.left button {
+  width: 8rem;
+}
+
 .middle {
   width: 60%;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .right {
+  padding-top: 10px;
   width: 20%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .profile-img {

@@ -1,8 +1,8 @@
-import React from "react";
-import S3ImageUpload from "./S3ImageUpload";
-import axios from "axios";
-import "../styles/edit-form.css";
-import SnackBarAlert from "../components/SnackBarAlert";
+import React from 'react';
+import S3ImageUpload from './S3ImageUpload';
+import axios from 'axios';
+import '../styles/edit-form.css';
+import SnackBarAlert from '../components/SnackBarAlert';
 
 export default function ProfileEdit({ setIsExpanded, signedIn }) {
   const [status, setStatus] = React.useState(undefined);
@@ -12,14 +12,17 @@ export default function ProfileEdit({ setIsExpanded, signedIn }) {
       const name = e.target.elements.name.value;
       const aboutMe = e.target.elements.aboutMe.value;
       const githubLink = e.target.elements.git.value;
-      const resp = await axios.post("http://localhost:4000/update-user", {
-        token: signedIn.signInUserSession.idToken.jwtToken,
-        name,
-        aboutMe,
-        githubLink,
-      });
+      const resp = await axios.post(
+        'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/update-user',
+        {
+          token: signedIn.signInUserSession.idToken.jwtToken,
+          name,
+          aboutMe,
+          githubLink,
+        },
+      );
       console.log(resp);
-      setStatus({ message: "Successfully Updated Profile!", type: "success" });
+      setStatus({ message: 'Successfully Updated Profile!', type: 'success' });
       setIsExpanded(false);
     } catch (error) {
       console.log(error);

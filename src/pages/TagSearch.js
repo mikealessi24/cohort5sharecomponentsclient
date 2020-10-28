@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
-import DisplayComponent from "../components/DisplayComponent";
-import Navbar from "../components/Navbar";
-import "../styles/layout.css";
+import React from 'react';
+import axios from 'axios';
+import DisplayComponent from '../components/DisplayComponent';
+import Navbar from '../components/Navbar';
+import '../styles/layout.css';
 
 export default function TagSearch({ tag, signedIn, setSignedIn }) {
   const [taggedComps, setTaggedComps] = React.useState([]);
@@ -13,20 +13,26 @@ export default function TagSearch({ tag, signedIn, setSignedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/user", {
-          token,
-        });
+        const response = await axios.post(
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/user',
+          {
+            token,
+          },
+        );
         setCurrentUser(response.data);
-        console.log("this is the response", response);
-        console.log("current user log", currentUser);
-        const avatar = await axios.post("http://localhost:4000/get-s3-pic", {
-          token,
-        });
+        console.log('this is the response', response);
+        console.log('current user log', currentUser);
+        const avatar = await axios.post(
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic',
+          {
+            token,
+          },
+        );
         console.log(avatar);
         setS3Url(avatar.data);
         const result = await axios.post(
-          "http://localhost:4000/get-components-by-tags",
-          { tag, token }
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-components-by-tags',
+          { tag, token },
         );
         setTaggedComps(result.data);
       } catch (error) {
@@ -35,7 +41,7 @@ export default function TagSearch({ tag, signedIn, setSignedIn }) {
     })();
   }, []);
 
-  console.log("these are the tags", taggedComps);
+  console.log('these are the tags', taggedComps);
 
   return (
     <div className="main">
@@ -44,7 +50,7 @@ export default function TagSearch({ tag, signedIn, setSignedIn }) {
           <img width="80px" src={s3Url} alt="avatar" />
           <h2>{currentUser && currentUser.name}</h2>
         </div>
-        <hr style={{ backgroundColor: "red" }} />
+        <hr style={{ backgroundColor: 'red' }} />
         <div>
           <Navbar setSignedIn={setSignedIn} />
         </div>

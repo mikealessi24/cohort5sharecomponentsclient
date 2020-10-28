@@ -1,30 +1,30 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import S3ComponentUpdater from "./S3ComponentUpdater";
-import axios from "axios";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import "../styles/component.css";
-import Tooltip from "@material-ui/core/Tooltip";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import S3ComponentUpdater from './S3ComponentUpdater';
+import axios from 'axios';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import '../styles/component.css';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: "50%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    width: '50%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
 }));
 
@@ -44,7 +44,7 @@ export default function ModalUpdate({ signedIn, component, setStatus }) {
     <div>
       <Tooltip title="Update" placement="right">
         <EditOutlinedIcon
-          style={{ fontSize: "70px" }}
+          style={{ fontSize: '40px' }}
           className="component-update-btn"
           type="button"
           onClick={handleOpen}

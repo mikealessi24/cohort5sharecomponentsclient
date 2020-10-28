@@ -1,13 +1,15 @@
-import React from "react";
-import S3ImageUpload from "../components/S3ImageUpload";
-import axios from "axios";
-import S3ComponentUpload from "../components/S3ComponentUpload";
-import DisplayedComponent from "../components/DisplayedComponent";
-import "../styles/layout.css";
-import ModalUpload from "../components/ModalUpload";
-import ProfileEdit from "../components/ProfileEdit";
-import DisplayComponent from "../components/DisplayComponent";
-import Navbar from "../components/Navbar";
+import React from 'react';
+import S3ImageUpload from '../components/S3ImageUpload';
+import axios from 'axios';
+import S3ComponentUpload from '../components/S3ComponentUpload';
+import DisplayedComponent from '../components/DisplayedComponent';
+import '../styles/layout.css';
+import ModalUpload from '../components/ModalUpload';
+import ProfileEdit from '../components/ProfileEdit';
+import DisplayComponent from '../components/DisplayComponent';
+import Navbar from '../components/Navbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 //add a follow button
 //get rid of the right side of the page
@@ -15,7 +17,7 @@ import Navbar from "../components/Navbar";
 //
 
 export default function ViewUser({ creator, signedIn }) {
-  console.log("We got the creator", creator);
+  console.log('We got the creator', creator);
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
   const [userComps, setUserComps] = React.useState(undefined);
@@ -26,35 +28,38 @@ export default function ViewUser({ creator, signedIn }) {
     (async function () {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
-        const response = await axios.post("http://localhost:4000/creator", {
-          token,
-          creator,
-        });
+        const response = await axios.post(
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/creator',
+          {
+            token,
+            creator,
+          },
+        );
         setCurrentUser(response.data);
         // console.log("this is the response", response);
         // console.log('current user log', currentUser);
         const avatar = await axios.post(
-          "http://localhost:4000/get-creator-s3-pic",
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-creator-s3-pic',
           {
             token,
             creator,
-          }
+          },
         );
         // console.log(avatar);
         setS3Url(avatar.data);
 
         const comps = await axios.post(
-          "http://localhost:4000/get-creator-comps",
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-creator-comps',
           {
             token,
             creator,
-          }
+          },
         );
         setUserComps(comps.data);
 
         const following = await axios.post(
-          "http://localhost:4000/get-followed-user",
-          { token }
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-followed-user',
+          { token },
         );
         const followed = following.data.map((el) => el.followedUser);
         setIsFollowed(followed.includes(creator));
@@ -67,10 +72,13 @@ export default function ViewUser({ creator, signedIn }) {
 
   async function followUser() {
     try {
-      await axios.post("http://localhost:4000/follow-user", {
-        followedUser: creator,
-        token: signedIn.signInUserSession.idToken.jwtToken,
-      });
+      await axios.post(
+        'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/follow-user',
+        {
+          followedUser: creator,
+          token: signedIn.signInUserSession.idToken.jwtToken,
+        },
+      );
       setIsFollowed(true);
     } catch (error) {
       console.log(error);
@@ -79,10 +87,13 @@ export default function ViewUser({ creator, signedIn }) {
 
   async function unfollowUser() {
     try {
-      await axios.post("http://localhost:4000/delete-followed-user", {
-        followedUser: creator,
-        token: signedIn.signInUserSession.idToken.jwtToken,
-      });
+      await axios.post(
+        'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/delete-followed-user',
+        {
+          followedUser: creator,
+          token: signedIn.signInUserSession.idToken.jwtToken,
+        },
+      );
       setIsFollowed(false);
     } catch (error) {
       console.log(error);
@@ -95,9 +106,22 @@ export default function ViewUser({ creator, signedIn }) {
         <div className="profile-img">
           <img width="80px" src={s3Url} alt="avatar" />
         </div>
-        <h2>Name: {currentUser && currentUser.name}</h2>
-        <h3>About: {currentUser && currentUser.about}</h3>
-        <h3>Github: {currentUser && currentUser.githubLink}</h3>
+        <hr style={{ backgroundColor: 'red' }} />
+        <div className="about-user">
+          <h2>{currentUser && currentUser.name}</h2>
+          <p>{currentUser && currentUser.about}</p>
+          <Tooltip
+            title={currentUser && currentUser.githubLink}
+            placement="right"
+          >
+            <GitHubIcon
+              style={{ fontSize: '50px' }}
+              onClick={() => (window.location.href = currentUser.githubLink)}
+            ></GitHubIcon>
+          </Tooltip>
+        </div>
+
+        <hr style={{ backgroundColor: 'red' }} />
 
         {!isFollowed ? (
           <button className="button follow-button" onClick={() => followUser()}>
