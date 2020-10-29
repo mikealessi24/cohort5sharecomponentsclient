@@ -1,9 +1,9 @@
-import React from "react";
-import uuid from "uuid/dist/v4";
-import { Storage } from "aws-amplify";
-import axios from "axios";
-import "../styles/component.css";
-import SnackBarAlert from "../components/SnackBarAlert";
+import React from 'react';
+import uuid from 'uuid/dist/v4';
+import { Storage } from 'aws-amplify';
+import axios from 'axios';
+import '../styles/component.css';
+import SnackBarAlert from '../components/SnackBarAlert';
 
 export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
   async function uploadComponent(e) {
@@ -22,25 +22,25 @@ export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
           `${signedIn.username}/components/${componentUuid}/${title}.js`,
           mainFile,
           {
-            contentType: "text/javascript",
-          }
+            contentType: 'text/javascript',
+          },
         );
         const screenshotUrl = await Storage.put(
           `${signedIn.username}/components/${componentUuid}/${title}.png`,
           screenshot,
           {
-            contentType: "image/png",
-          }
+            contentType: 'image/png',
+          },
         );
         const readMeUrl = await Storage.put(
           `${signedIn.username}/components/${componentUuid}/${title}.txt`,
           readMe,
           {
-            contentType: "text/plain",
-          }
+            contentType: 'text/plain',
+          },
         );
         const resp = await axios.post(
-          "http://localhost:4000/create-component",
+          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/create-component',
           {
             componentUuid,
             title,
@@ -48,15 +48,15 @@ export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
             mainFileUrl,
             readMeUrl,
             screenshotUrl,
-          }
+          },
         );
         console.log(resp);
-        setStatus({ message: "Successfully Uploaded!", type: "success" });
+        setStatus({ message: 'Successfully Uploaded!', type: 'success' });
         setOpen(false);
       } else {
         setStatus({
-          message: "Error Upoloading, make sure all fields are defined",
-          type: "error",
+          message: 'Error Upoloading, make sure all fields are defined',
+          type: 'error',
         });
       }
 
@@ -75,7 +75,7 @@ export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
     <>
       <form className="modal-container" onSubmit={(e) => uploadComponent(e)}>
         <label>
-          {" "}
+          {' '}
           Title:
           <input type="text" id="title" />
         </label>
@@ -87,7 +87,7 @@ export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
           accept="text/javascript"
           id="mainFile"
           name="mainFile"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           className="jsinput"
         />
 
@@ -101,7 +101,7 @@ export default function S3ComponentUpload({ signedIn, setStatus, setOpen }) {
           accept="image/*"
           id="screenshot"
           name="screenshot"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           className="inputfile"
         />
         {/* <button onClick={onClick}>Upload ScreenShot</button> */}

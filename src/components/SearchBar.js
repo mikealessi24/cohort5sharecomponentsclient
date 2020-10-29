@@ -75,14 +75,6 @@ export default function SearchBar() {
   const classes = useStyles();
 
   return (
-    // <div>
-    //   <input
-    //     className="searchBar"
-    //     type="text"
-    //     onChange={(e) => setSearch(e.target.value)}
-    //   />
-    //   <SearchIcon onClick={() => searchComps()}>Search</SearchIcon>
-    // </div>
     <div style={styles.main}>
       <div className={classes.search}>
         <InputBase
@@ -100,8 +92,6 @@ export default function SearchBar() {
             }
           }}
         />
-
-        {/* <SearchIcon onClick={() => searchComps()} /> */}
       </div>
     </div>
   );
@@ -112,6 +102,5 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     height: '10vh',
-    border: '1px solid green',
   },
 };

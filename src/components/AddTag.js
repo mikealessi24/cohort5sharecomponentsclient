@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
-import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
-import Tooltip from "@material-ui/core/Tooltip";
-import "../styles/component.css";
+import React from 'react';
+import axios from 'axios';
+import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
+import '../styles/component.css';
 
 export default function AddTag({ signedIn, component }) {
   const [tag, setTag] = React.useState(undefined);
@@ -11,12 +11,15 @@ export default function AddTag({ signedIn, component }) {
     try {
       const token = signedIn.signInUserSession.idToken.jwtToken;
       const componentId = component.componentId;
-      await axios.post("http://localhost:4000/addtag", {
-        token,
-        componentId,
-        tag,
-      });
-      window.alert("Tag Added!!");
+      await axios.post(
+        'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/addtag',
+        {
+          token,
+          componentId,
+          tag,
+        },
+      );
+      window.alert('Tag Added!!');
       //Add a snackbar here from Material UI
     } catch (error) {
       console.log(error);

@@ -1,30 +1,30 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { Auth } from "aws-amplify";
-import { navigate } from "@reach/router";
-import axios from "axios";
+import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import { Auth } from 'aws-amplify';
+import { navigate } from '@reach/router';
+import axios from 'axios';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
+      {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
@@ -32,16 +32,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -71,7 +71,7 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
             (async function () {
               try {
                 const resp = await Auth.confirmSignUp(username, code);
-                if (resp === "SUCCESS") {
+                if (resp === 'SUCCESS') {
                   const currentUser = await Auth.signIn(username, password);
                   console.log(currentUser);
                   const idToken =
@@ -81,18 +81,21 @@ export default function ConfirmSignUp({ username, password, setSignedIn }) {
                   //   navigate('/home');
                   // const  await Auth.currentAuthenticatedUser());
                   await axios
-                    .post("http://localhost:4000/create-user", {
-                      token: idToken,
-                      avatar: "defaultAvatar/super-mario-run.jpg",
-                    })
+                    .post(
+                      'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/create-user',
+                      {
+                        token: idToken,
+                        avatar: 'defaultAvatar/super-mario-run.jpg',
+                      },
+                    )
                     .then(() => {
                       setSignedIn(currentUser);
-                      navigate("/home");
+                      navigate('/home');
                     })
                     .catch((error) => console.log(error));
                 }
               } catch (error) {
-                console.log("error confirming sign up", error);
+                console.log('error confirming sign up', error);
               }
             })();
           }}
