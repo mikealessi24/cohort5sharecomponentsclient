@@ -19,7 +19,7 @@ export default function Navbar({ setSignedIn }) {
             try {
               await Auth.signOut({ global: true });
               setSignedIn(undefined);
-              navigate("/signin");
+              navigate("/");
             } catch (error) {
               console.log(error);
             }

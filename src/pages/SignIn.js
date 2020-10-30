@@ -16,10 +16,11 @@ import { Link as ReachRouterLink } from "@reach/router";
 import { Auth } from "aws-amplify";
 import { navigate } from "@reach/router";
 import { useDispatch } from "react-redux";
-import SignInPic from "../assets/Screen Shot 2020-10-27 at 9.39.02 AM.png";
+import Logo from "../assets/facebook_profile_image.png";
 
 import SnackBarAlert from "../components/SnackBarAlert";
 import { Snackbar } from "@material-ui/core";
+import LogoCube from "../components/LogoCube";
 
 function Copyright() {
   return (
@@ -37,11 +38,13 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
+    overflow: "hidden",
   },
   image: {
     display: "flex",
     alignItems: "center",
-    backgroundImage: `url(${SignInPic})`,
+    justifyContent: "center",
+    // backgroundImage: `url(${Logo})`,
     backgroundRepeat: "no-repeat",
     // backgroundColor:
     //   theme.palette.type === "light"
@@ -94,7 +97,7 @@ export default function SignInSide({ setSignedIn }) {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image}>
-        <img src={SignInPic} width="100%"></img>{" "}
+        <LogoCube />
       </Grid>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>

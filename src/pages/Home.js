@@ -1,18 +1,19 @@
-import React from 'react';
-import { Link } from '@reach/router';
-import { Auth } from 'aws-amplify';
-import { navigate } from '@reach/router';
-import axios from 'axios';
-import DisplayComponent from '../components/DisplayComponent';
-import '../styles/layout.css';
-import Navbar from '../components/Navbar';
-import SearchBar from '../components/SearchBar';
+import React from "react";
+import { Link } from "@reach/router";
+import { Auth } from "aws-amplify";
+import { navigate } from "@reach/router";
+import axios from "axios";
+import DisplayComponent from "../components/DisplayComponent";
+import "../styles/layout.css";
+import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
 // import ToggleTheme from "../components/ToggleTheme";
+import Logo from "../assets/facebook_profile_image.png";
 
 // import { useStore } from 'react-redux';
 
 export default function Home({ signedIn, setSignedIn }) {
-  console.log('home');
+  console.log("home");
   //   const store = useStore();
   const [s3Url, setS3Url] = React.useState(undefined);
   const [currentUser, setCurrentUser] = React.useState(undefined);
@@ -23,27 +24,27 @@ export default function Home({ signedIn, setSignedIn }) {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const response = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/user',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/user",
           {
             token,
-          },
+          }
         );
         setCurrentUser(response.data);
-        console.log('this is the response', response);
-        console.log('current user log', currentUser);
+        console.log("this is the response", response);
+        console.log("current user log", currentUser);
         const avatar = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic",
           {
             token,
-          },
+          }
         );
         console.log(avatar);
         setS3Url(avatar.data);
         const comps = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-all-comps',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-all-comps",
           {
             token,
-          },
+          }
         );
         setAllComps(comps.data);
       } catch (error) {
@@ -58,7 +59,7 @@ export default function Home({ signedIn, setSignedIn }) {
           <img width="80px" src={s3Url} alt="avatar" />
           <h2>{currentUser && currentUser.name}</h2>
         </div>
-        <hr style={{ backgroundColor: 'red' }} />
+        <hr style={{ backgroundColor: "red" }} />
         <div>
           <Navbar setSignedIn={setSignedIn} />
         </div>
@@ -73,7 +74,15 @@ export default function Home({ signedIn, setSignedIn }) {
           ))}
       </div>
       <div className="right">
-        <SearchBar />
+        <div style={{ position: "relative", top: "20px" }}>
+          <SearchBar />
+        </div>
+
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ height: "200px", position: "relative", bottom: "20px" }}
+        />
       </div>
     </div>
   );

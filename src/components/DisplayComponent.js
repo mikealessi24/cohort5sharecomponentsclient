@@ -1,13 +1,13 @@
-import React from 'react';
-import axios from 'axios';
-import '../styles/component.css';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { navigate } from '@reach/router';
-import SnackBarAlert from '../components/SnackBarAlert';
-import CodeIcon from '@material-ui/icons/Code';
-import BookOutlinedIcon from '@material-ui/icons/BookOutlined';
-import AddShoppingCartOutlinedIcon from '@material-ui/icons/AddShoppingCartOutlined';
-import Tooltip from '@material-ui/core/Tooltip';
+import React from "react";
+import axios from "axios";
+import "../styles/component.css";
+import { CopyToClipboard } from "react-copy-to-clipboard";
+import { navigate } from "@reach/router";
+import SnackBarAlert from "../components/SnackBarAlert";
+import CodeIcon from "@material-ui/icons/Code";
+import BookOutlinedIcon from "@material-ui/icons/BookOutlined";
+import AddShoppingCartOutlinedIcon from "@material-ui/icons/AddShoppingCartOutlined";
+import Tooltip from "@material-ui/core/Tooltip";
 
 export default function DisplayComponent({ component, signedIn }) {
   const [screenshotUrl, setScreenshotUrl] = React.useState(undefined);
@@ -23,16 +23,16 @@ export default function DisplayComponent({ component, signedIn }) {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const path = component.screenshot;
         const resultUrl = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-screenshot2',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-screenshot2",
           {
             path,
-          },
+          }
         );
         setScreenshotUrl(resultUrl.data);
 
         const result = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-component-tags',
-          { token, componentId: component.componentId },
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-component-tags",
+          { token, componentId: component.componentId }
         );
         setTags(result.data);
       } catch (error) {
@@ -49,8 +49,8 @@ export default function DisplayComponent({ component, signedIn }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-js2',
-          { path: component.mainFile },
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-js2",
+          { path: component.mainFile }
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -72,8 +72,8 @@ export default function DisplayComponent({ component, signedIn }) {
         //set width to 40%
       } else {
         const resultUrl = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-readme2',
-          { path: component.readMe },
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-component-readme2",
+          { path: component.readMe }
         );
         const fileContent = await axios.get(resultUrl.data);
         // console.log('file content: ', fileContent);
@@ -104,35 +104,35 @@ export default function DisplayComponent({ component, signedIn }) {
       <div className="component-buttons">
         <Tooltip title="Show Source" placement="top">
           <CodeIcon
-            style={{ fontSize: '40px' }}
+            style={{ fontSize: "40px" }}
             className="view-source-code"
             onClick={() => getSource()}
           ></CodeIcon>
         </Tooltip>
-        {'  '}
+        {"  "}
         <Tooltip title="Read Me" placement="top">
           <BookOutlinedIcon
-            style={{ fontSize: '40px' }}
+            style={{ fontSize: "40px" }}
             className="view-read-me"
             onClick={() => getReadMe()}
           ></BookOutlinedIcon>
         </Tooltip>
-        {'  '}
+        {"  "}
         {jsFile && (
-          <CopyToClipboard text={jsFile}>
-            <Tooltip title="Kopy File" placement="top">
+          <Tooltip title="Kopy File" placement="top">
+            <CopyToClipboard text={jsFile}>
               <AddShoppingCartOutlinedIcon
-                style={{ fontSize: '40px' }}
+                style={{ fontSize: "40px" }}
                 className="file-copy"
-                onClick={() => window.alert('Code was copied!')}
+                onClick={() => window.alert("Code was copied!")}
                 disabled={!isExpanded}
               ></AddShoppingCartOutlinedIcon>
-            </Tooltip>
-          </CopyToClipboard>
+            </CopyToClipboard>
+          </Tooltip>
         )}
       </div>
 
-      {jsFile && <pre style={{ textAlign: 'left' }}>{jsFile}</pre>}
+      {jsFile && <pre style={{ textAlign: "left" }}>{jsFile}</pre>}
       {textFile && <pre className="readme-container">{textFile}</pre>}
       <div className="tag-container">
         {tags.map((tag) => (
@@ -140,7 +140,7 @@ export default function DisplayComponent({ component, signedIn }) {
             className="specific-tag"
             onClick={() => navigate(`/tag/${tag.attribute}`)}
           >
-            {'#' + tag.attribute}
+            {"#" + tag.attribute}
           </div>
         ))}
       </div>

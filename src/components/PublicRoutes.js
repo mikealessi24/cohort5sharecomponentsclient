@@ -12,7 +12,7 @@ export default function PublicRoutes({ setSignedIn }) {
   // const [openSnack, setOpenSnack] = React.useState(false);
   return (
     <Router>
-      <SignIn setSignedIn={setSignedIn} path="/signin" />
+      <SignIn setSignedIn={setSignedIn} path="/" />
       <SignUp
         setUsername={setUsername}
         setPassword={setPassword}
@@ -24,7 +24,6 @@ export default function PublicRoutes({ setSignedIn }) {
         setSignedIn={setSignedIn}
         path="/confirm"
       />
-      <Landing path="/" />
       <NotFound default />
     </Router>
   );

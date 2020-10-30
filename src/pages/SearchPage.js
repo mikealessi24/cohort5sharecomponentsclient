@@ -1,9 +1,11 @@
-import React from 'react';
-import axios from 'axios';
-import Navbar from '../components/Navbar';
-import SearchBar from '../components/SearchBar';
-import '../styles/layout.css';
-import DisplayComponent from '../components/DisplayComponent';
+import React from "react";
+import axios from "axios";
+import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
+import "../styles/layout.css";
+import DisplayComponent from "../components/DisplayComponent";
+
+import Logo from "../assets/facebook_profile_image.png";
 
 export default function SearchPage({ search, signedIn, setSignedIn }) {
   const [searchComps, setSearchComps] = React.useState([]);
@@ -15,27 +17,27 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
       try {
         const token = signedIn.signInUserSession.idToken.jwtToken;
         const response = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/user',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/user",
           {
             token,
-          },
+          }
         );
         setCurrentUser(response.data);
-        console.log('this is the response', response);
-        console.log('current user log', currentUser);
+        console.log("this is the response", response);
+        console.log("current user log", currentUser);
         const avatar = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/get-s3-pic",
           {
             token,
-          },
+          }
         );
         setS3Url(avatar.data);
         const results = await axios.post(
-          'https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/search',
+          "https://adp34fqnm5.execute-api.us-east-1.amazonaws.com/dev/search",
           {
             token,
             search,
-          },
+          }
         );
         setSearchComps(results.data);
       } catch (error) {
@@ -43,7 +45,7 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
       }
     })();
   }, [search]);
-  console.log('search comps', searchComps);
+  console.log("search comps", searchComps);
 
   return (
     <div className="main">
@@ -52,7 +54,7 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
           <img width="80px" src={s3Url} alt="avatar" />
           <h2>{currentUser && currentUser.name}</h2>
         </div>
-        <hr style={{ backgroundColor: 'red' }} />
+        <hr style={{ backgroundColor: "red" }} />
         <div>
           <Navbar setSignedIn={setSignedIn} />
         </div>
@@ -69,7 +71,15 @@ export default function SearchPage({ search, signedIn, setSignedIn }) {
         )}
       </div>
       <div className="right">
-        <SearchBar />
+        <div style={{ position: "relative", top: "20px" }}>
+          <SearchBar />
+        </div>
+
+        <img
+          src={Logo}
+          alt="logo"
+          style={{ height: "200px", position: "relative", bottom: "20px" }}
+        />
       </div>
     </div>
   );

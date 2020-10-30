@@ -101,7 +101,7 @@ export default function SignUp({ setUsername, setPassword }) {
               })();
             }}
           >
-            <SnackBarAlert status={status} setStatus={setStatus} />
+            {status && <SnackBarAlert status={status} setStatus={setStatus} />}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -159,7 +159,7 @@ export default function SignUp({ setUsername, setPassword }) {
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <ReachRouterLink to="/signin">
+                <ReachRouterLink to="/">
                   Already have an account? Sign in
                 </ReachRouterLink>
               </Grid>

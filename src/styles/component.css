@@ -10,7 +10,9 @@ pre {
   background-color: #535353;
   box-shadow: 2px 2px 10px 4px rgba(0, 0, 0, 0.486);
   min-width: 70%;
+  max-width: 80%;
   border-radius: 4px;
+  overflow-x: scroll;
   text-align: left;
 }
 
